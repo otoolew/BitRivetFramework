@@ -10,7 +10,6 @@ namespace UnityStandardAssets.Utility
         public bool ignoreTimescale;
         private float m_LastRealTime;
 
-
         private void Start()
         {
             m_LastRealTime = Time.realtimeSinceStartup;
@@ -21,6 +20,7 @@ namespace UnityStandardAssets.Utility
         private void Update()
         {
             float deltaTime = Time.deltaTime;
+
             if (ignoreTimescale)
             {
                 deltaTime = (Time.realtimeSinceStartup - m_LastRealTime);
