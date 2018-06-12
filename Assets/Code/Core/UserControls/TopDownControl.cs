@@ -20,16 +20,8 @@ namespace Core
         public float turnSpeed = 6f;
         private Vector3 movementVelocity;
 
-        int terrainMask;                                        // A layer mask so that a ray can be cast just at gameobjects on the floor layer.
-        float camRayLength = 100f;                              // The length of the ray from the camera into the scene.
-        public LayerMask layerMask;
-        private bool moving = false;
-
         void Awake()
         {
-            // Create a layer mask for the floor layer.
-            terrainMask = LayerMask.GetMask("Floor");
-
             // Set up references.
             //animator = GetComponent<Animator>();
             playerRigidbody = GetComponent<Rigidbody>();
@@ -43,7 +35,8 @@ namespace Core
             movementVelocity = movementInput * movementSpeed;
             //Animating(hortinput, vertinput);
             //float rayLength;
-            Aiming();
+            if(Input.GetMouseButton(1))
+                Aiming();
         }
         void FixedUpdate()
         {

@@ -8,20 +8,16 @@ namespace Core
 {
 	public class CameraFollow : MonoBehaviour 
 	{
-        public GameObject Target;
+        public Transform target;
+        public CameraSettings cameraSettings;
 
-
-        private Vector3 offset;
-
-        // Use this for initialization
-        void Start()
+        private void Start()
         {
-            offset = transform.position - Target.transform.position;
+            transform.Rotate(cameraSettings.tiltAngle);
         }
-
-        void Update()
+        private void LateUpdate()
         {
-            transform.position = Target.transform.position + offset;
+            transform.position = target.position + cameraSettings.offset;
         }
     }
 }

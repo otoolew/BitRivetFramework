@@ -343,6 +343,10 @@ Prefab:
       propertyPath: m_Constraints
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 1762904443706086, guid: 61ae53eb98d498e4e9dbf740c402e3df, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114106812777240184, guid: 61ae53eb98d498e4e9dbf740c402e3df, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 61ae53eb98d498e4e9dbf740c402e3df, type: 2}
@@ -495,9 +499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 6
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0
+  turnSpeed: 6
 --- !u!1 &1617306427
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,13 +693,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2086703366}
-  m_LocalRotation: {x: 0.60876137, y: 0, z: 0, w: 0.7933534}
-  m_LocalPosition: {x: 0, y: 20, z: -5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 75, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2086703371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -706,8 +708,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 2086703366}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 246cc59c7a84ea44f87f6b70acfe30c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 537729c3fd97ca146bad3bebbcec2d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1050627626}
-  offset: {x: 0, y: 7.5, z: 0}
+  cameraSettings: {fileID: 11400000, guid: 306a7960d38a1dd4d9a985b3610412b3, type: 2}
