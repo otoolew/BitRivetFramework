@@ -1,46 +1,48 @@
 ﻿// ----------------------------------------------------------------------------
-// Author: William O'Toole
-// Project: ProjectName
-// Date: TimeStamp
+// Author:  William O'Toole
+// Project: BitRivet Framework
+// Date:    13 JUNE 2018
 // ----------------------------------------------------------------------------
-
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 namespace Core
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class TopDownControl : MonoBehaviour 
-	{
+    public class TDRigidControl : MonoBehaviour
+    {
         //private Animator animator;                              // Reference to the animator component.
-        private Rigidbody playerRigidbody;                      // Reference to the player's rigidbody.
-        private Vector3 movementInput;                          // The vector to store the direction of the player's movement.
+        private Rigidbody rigidBody;                      // Reference to the player's rigidbody.
+        private Vector3 movement;                          // The vector to store the direction of the player's movement.
         public float movementSpeed = 6f;                        // The speed that the player will move at.
         public float turnSpeed = 6f;
         private Vector3 movementVelocity;
-
+        public float lookSpeed;
         void Awake()
         {
             // Set up references.
             //animator = GetComponent<Animator>();
-            playerRigidbody = GetComponent<Rigidbody>();
+            rigidBody = GetComponent<Rigidbody>();
         }
         private void Update()
         {
             float hortinput = Input.GetAxisRaw("Horizontal");
             float vertinput = Input.GetAxisRaw("Vertical");
 
-            movementInput = new Vector3(hortinput, 0f, vertinput);
-            movementVelocity = movementInput * movementSpeed;
+            movement = new Vector3(hortinput, 0f, vertinput);
+            movementVelocity = movement * movementSpeed;
             //Animating(hortinput, vertinput);
             //float rayLength;
-            if(Input.GetMouseButton(1))
+            if (Input.GetMouseButton(1))
+            {
                 Aiming();
+            }
+            else if (movement != Vector3.zero)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement.normalized), turnSpeed);
+            }
         }
         void FixedUpdate()
         {
-            playerRigidbody.velocity = movementVelocity;
+            rigidBody.velocity = movementVelocity;
         }
         void Aiming()
         {
@@ -66,7 +68,7 @@ namespace Core
                 Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
 
                 // Smoothly rotate towards the target point.
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, lookSpeed * Time.deltaTime);
             }
         }
         //void Animating(float h, float v)
@@ -79,6 +81,5 @@ namespace Core
         //    // Tell the animator whether or not the player is walking.
         //    animator.SetBool("Moving", walking);
         //}
-    
     }
 }

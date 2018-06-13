@@ -1,9 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// ----------------------------------------------------------------------------
+// Author:  William O'Toole
+// Project: BitRivet Framework
+// Date:    13 JUNE 2018
+// ----------------------------------------------------------------------------
 using UnityEngine;
 namespace Core
 {
-    public class TransformControl : MonoBehaviour
+    public class TDTransformControl : MonoBehaviour
     {
         public float movementSpeed;
         public float turnSpeed;
@@ -14,17 +17,17 @@ namespace Core
         {
             float moveHorizontal = Input.GetAxisRaw("Horizontal");
             float moveVertical = Input.GetAxisRaw("Vertical");
-            Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+            Vector3 movementDirection = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
-            transform.Translate(movement * movementSpeed * Time.deltaTime, Space.World);
+            transform.Translate(movementDirection * movementSpeed * Time.deltaTime, Space.World);
 
             if (Input.GetMouseButton(1))
             {
                 Aiming();
             }
-            else if (movement != Vector3.zero)
+            else if (movementDirection != Vector3.zero)
             {
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement.normalized), turnSpeed);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movementDirection.normalized), turnSpeed);
             }
 
         }
