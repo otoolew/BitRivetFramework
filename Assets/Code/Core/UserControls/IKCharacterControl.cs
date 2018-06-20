@@ -9,72 +9,93 @@ using UnityEngine;
 namespace Core
 {
     [RequireComponent(typeof(CharacterController))]
+    [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(AimIK))]
     public class IKCharacterControl : MonoBehaviour 
 	{
         CharacterController controller;
+        Animator animator;
         AimIK aimIK;
         Ray ray;
         RaycastHit rayHit = new RaycastHit();
         Vector3 moveDirection = Vector3.zero;
-        public float movementSpeed = 6.0f;
+        public float crouchSpeed = 2.0f;
+        public float walkSpeed = 3.0f;
+        public float runSpeed = 6.0f;
+        public float sprintSpeed = 10.0f;
+
         public float rotationSpeed = 0.15f;
-        public float jumpSpeed = 4.0f;
         public float gravity = 20.0f;
         public Transform aimPoint;
         public LayerMask layerMask;
 
-        private void Awake()
-        {
-            controller = GetComponent<CharacterController>();
-            aimIK = GetComponent<AimIK>();
-        }
+
         // Use this for initialization
         void Start () 
 		{
-			
-		}
+            controller = GetComponent<CharacterController>();
+            animator = GetComponent<Animator>();
+            aimIK = GetComponent<AimIK>();
+        }
 		
 		// Update is called once per frame
 		void Update () 
 		{
+            float currentSpeed = runSpeed;
+            float moveState = 0;
             if (controller.isGrounded)
             {
-                float moveHorizontal = Input.GetAxisRaw("Horizontal");
-                float moveVertical = Input.GetAxisRaw("Vertical");
-                moveDirection = new Vector3(moveHorizontal, 0.0f, moveVertical);
-
-                if (Input.GetMouseButton(1))
-                {
-                    aimIK.enabled = true;
-                    AimPoint();
-                }
-                else
-                {
-                    aimIK.enabled = false;
-                }
+                float moveX = Input.GetAxisRaw("Horizontal");
+                float moveY = Input.GetAxisRaw("Vertical");
+                moveDirection = new Vector3(moveX, 0.0f, moveY);
+                if (moveDirection.sqrMagnitude > 0)
+                    moveState = 1f;
 
                 if (moveDirection != Vector3.zero)
                 {
                     transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection.normalized), rotationSpeed);
                 }
 
-                if (Input.GetButton("Jump"))
+                if (Input.GetButton("Aim"))
                 {
-                    moveDirection.y = jumpSpeed;
+                    aimIK.enabled = true;
+                    AimPoint();
+                    currentSpeed = walkSpeed;
+                    if(moveDirection.sqrMagnitude > 0)
+                        moveState = 0.5f;              
+
+                }
+                else
+                {
+                    aimIK.enabled = false;
                 }
 
                 if (Input.GetButton("Crouch"))
                 {
-
+                    //Debug.Log("Crouch Not Implemented!");
                 }
-            }
 
-            //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection.normalized), rotationSpeed);
+                if (Input.GetButton("Sprint"))
+                {
+                    aimIK.enabled = false;
+                    currentSpeed = sprintSpeed;
+                    moveState = 1.5f;
+                }
+                MovementAnimation(moveDirection.sqrMagnitude, moveState);
+            }       
             moveDirection.y -= gravity * Time.deltaTime;
-            controller.Move(moveDirection * Time.deltaTime * movementSpeed);
+            controller.Move(moveDirection * Time.deltaTime * currentSpeed);
+            Debug.Log("Movement Speed: "+ currentSpeed);
         }
-        void AimPoint()
+
+        private void MovementAnimation(float moving, float moveState)
+        {
+            animator.SetFloat("MovementState", moveState);
+        }
+        /// <summary>
+        /// Aims characters head, torso, and weapon to a rayhit point 
+        /// </summary>
+        private void AimPoint()
         {
             //Vector3 mousePosition = new Vector3(Input.mousePosition.x, transform.position.y, Input.mousePosition.z);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -85,7 +106,7 @@ namespace Core
 
                 Vector3 targetDir = hitPoint - transform.position;
                 // The step size is equal to speed times frame time.
-                float step = movementSpeed * Time.deltaTime;
+                float step = runSpeed * Time.deltaTime;
                 Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
                 newDir.y = 0;
                 Debug.DrawRay(transform.position, newDir, Color.red);
