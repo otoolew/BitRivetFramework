@@ -23,7 +23,7 @@ namespace Core
         public float walkSpeed = 3.0f;
         public float runSpeed = 6.0f;
         public float sprintSpeed = 10.0f;
-
+        public bool aiming;
         public float rotationSpeed = 0.15f;
         public float gravity = 20.0f;
         public Transform aimPoint;
@@ -43,6 +43,7 @@ namespace Core
 		{
             float currentSpeed = runSpeed;
             float moveState = 0;
+            //aiming = false;
             if (controller.isGrounded)
             {
                 float moveX = Input.GetAxisRaw("Horizontal");
@@ -51,23 +52,19 @@ namespace Core
                 if (moveDirection.sqrMagnitude > 0)
                     moveState = 1f;
 
-                if (moveDirection != Vector3.zero)
-                {
-                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection.normalized), rotationSpeed);
-                }
-
                 if (Input.GetButton("Aim"))
                 {
                     aimIK.enabled = true;
                     AimPoint();
                     currentSpeed = walkSpeed;
                     if(moveDirection.sqrMagnitude > 0)
-                        moveState = 0.5f;              
-
+                        moveState = 0.5f;
+                    aiming = true;
                 }
                 else
                 {
                     aimIK.enabled = false;
+                    aiming = false;
                 }
 
                 if (Input.GetButton("Crouch"))
@@ -82,7 +79,8 @@ namespace Core
                     moveState = 1.5f;
                 }
                 MovementAnimation(moveDirection.sqrMagnitude, moveState);
-            }       
+            }
+            Turn(aiming);
             moveDirection.y -= gravity * Time.deltaTime;
             controller.Move(moveDirection * Time.deltaTime * currentSpeed);
             Debug.Log("Movement Speed: "+ currentSpeed);
@@ -91,6 +89,32 @@ namespace Core
         private void MovementAnimation(float moving, float moveState)
         {
             animator.SetFloat("MovementState", moveState);
+        }
+        void Turn(bool aiming)
+        {
+
+            if (aiming)
+            {
+                // Create a vector from the player to the point on the floor the raycast from the mouse hit.
+                Vector3 playerToMouse = aimPoint.position - transform.position;
+
+                // Ensure the vector is entirely along the floor plane.
+                playerToMouse.y = 0f;
+
+                // Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
+                Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
+
+                // Set the player's rotation to this new rotation.
+                transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, rotationSpeed);
+            }
+            else
+            {
+                if (moveDirection != Vector3.zero)
+                {
+                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection.normalized), rotationSpeed);
+                }
+            }
+  
         }
         /// <summary>
         /// Aims characters head, torso, and weapon to a rayhit point 
