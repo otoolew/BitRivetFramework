@@ -34,7 +34,6 @@ namespace Core
         public float crouchSpeed = 2.0f;
         public float walkSpeed = 3.0f;
         public float runSpeed = 6.0f;
-        public float sprintSpeed = 10.0f;
         public bool aiming;
         public bool crouching;
         public float rotationSpeed = 0.15f;
@@ -94,23 +93,12 @@ namespace Core
                 }
 
                 if (Input.GetButton("Crouch"))
-                {
-                    //controller.center = new Vector3(0, 0.9f, 0);
-                    //controller.height = 1.5f;             
+                {          
                     crouching = true;
                 }
                 else
                 {
-                    //controller.center = new Vector3(0,1.25f,0);
-                    //controller.height = 2.25f;
                     crouching = false;
-                }
-
-                if (Input.GetButton("Sprint"))
-                {
-                    aimIK.enabled = false;
-                    currentSpeed = sprintSpeed;
-                    //moveState = 1.5f;
                 }
                 MovementAnimation(moveAnimation);
             }
@@ -139,7 +127,6 @@ namespace Core
 
         void LegRotation(bool aiming)
         {
-
             if (aiming)
             {
                 // Create a vector from the player to the point on the floor the raycast from the mouse hit.
