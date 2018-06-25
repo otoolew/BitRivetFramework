@@ -13,6 +13,7 @@ namespace Core
     [RequireComponent(typeof(AimIK))]
     public class IKCharacterControl : MonoBehaviour 
 	{
+        // Components
         CharacterController controller;
         Animator animator;
         AimIK aimIK;
@@ -20,12 +21,16 @@ namespace Core
         RaycastHit rayHit = new RaycastHit();
         Vector3 moveDirection = Vector3.zero;
         Vector3 moveAnimation;
+        // Camera
         Transform cameraTransform;
         Vector3 cameraForward;
+
+        float capsuleHeight;
+        Vector3 capsuleCenter;
+        // World Orientation
         float forwardAmount;
         float turnAmount;
-        float standingHeight;
-        float crouchingHeight;
+        // Character Stats
         public float crouchSpeed = 2.0f;
         public float walkSpeed = 3.0f;
         public float runSpeed = 6.0f;
@@ -45,8 +50,8 @@ namespace Core
             animator = GetComponent<Animator>();
             aimIK = GetComponent<AimIK>();
             cameraTransform = Camera.main.transform;
-            standingHeight = controller.height;
-            crouchingHeight = controller.height * 0.5f;
+            capsuleHeight = controller.height;
+            capsuleCenter = controller.center;
         }
 
         // Update is called once per frame
@@ -90,14 +95,15 @@ namespace Core
 
                 if (Input.GetButton("Crouch"))
                 {
+                    //controller.center = new Vector3(0, 0.9f, 0);
+                    //controller.height = 1.5f;             
                     crouching = true;
-                    controller.height = crouchingHeight;
-                    //Debug.Log("Crouch Not Implemented!");
                 }
                 else
                 {
+                    //controller.center = new Vector3(0,1.25f,0);
+                    //controller.height = 2.25f;
                     crouching = false;
-                    controller.height = standingHeight;
                 }
 
                 if (Input.GetButton("Sprint"))
@@ -121,13 +127,14 @@ namespace Core
                 moveAnim.Normalize();
             }
 
-            Vector3 localMovement = transform.InverseTransformDirection(moveAnimation);
+            Vector3 localMovement = transform.InverseTransformDirection(moveAnim);
             turnAmount = localMovement.x;
             forwardAmount = localMovement.z;
 
             animator.SetFloat("Forward", forwardAmount, 0.1f, Time.deltaTime);
             animator.SetFloat("Turn", turnAmount, 0.1f, Time.deltaTime);
             animator.SetBool("Aiming", aiming);
+            animator.SetBool("Crouching", crouching);
         }
 
         void LegRotation(bool aiming)

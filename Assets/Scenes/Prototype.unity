@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1562,7 +1562,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-111016
+  m_Name: pb_Mesh24502
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -1761,7 +1761,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1684463658 stripped
 Transform:
-  m_PrefabParentObject: {fileID: 4499832694003358, guid: 7389f75358563aa47a425800d4884a65,
+  m_PrefabParentObject: {fileID: 4832183762391082, guid: 2b19ea0e4ab6c1f49bc5e933af8406a3,
     type: 2}
   m_PrefabInternal: {fileID: 1861881081}
 --- !u!1 &1782101588
@@ -1833,55 +1833,40 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4499832694003358, guid: 7389f75358563aa47a425800d4884a65, type: 2}
+    - target: {fileID: 4832183762391082, guid: 2b19ea0e4ab6c1f49bc5e933af8406a3, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4499832694003358, guid: 7389f75358563aa47a425800d4884a65, type: 2}
+    - target: {fileID: 4832183762391082, guid: 2b19ea0e4ab6c1f49bc5e933af8406a3, type: 2}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4499832694003358, guid: 7389f75358563aa47a425800d4884a65, type: 2}
+    - target: {fileID: 4832183762391082, guid: 2b19ea0e4ab6c1f49bc5e933af8406a3, type: 2}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4499832694003358, guid: 7389f75358563aa47a425800d4884a65, type: 2}
+    - target: {fileID: 4832183762391082, guid: 2b19ea0e4ab6c1f49bc5e933af8406a3, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4499832694003358, guid: 7389f75358563aa47a425800d4884a65, type: 2}
+    - target: {fileID: 4832183762391082, guid: 2b19ea0e4ab6c1f49bc5e933af8406a3, type: 2}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4499832694003358, guid: 7389f75358563aa47a425800d4884a65, type: 2}
+    - target: {fileID: 4832183762391082, guid: 2b19ea0e4ab6c1f49bc5e933af8406a3, type: 2}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4499832694003358, guid: 7389f75358563aa47a425800d4884a65, type: 2}
+    - target: {fileID: 4832183762391082, guid: 2b19ea0e4ab6c1f49bc5e933af8406a3, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4499832694003358, guid: 7389f75358563aa47a425800d4884a65, type: 2}
+    - target: {fileID: 4832183762391082, guid: 2b19ea0e4ab6c1f49bc5e933af8406a3, type: 2}
       propertyPath: m_RootOrder
       value: 17
       objectReference: {fileID: 0}
-    - target: {fileID: 114925814688930684, guid: 7389f75358563aa47a425800d4884a65,
-        type: 2}
-      propertyPath: solver.IKPosition.x
-      value: 4.388371
-      objectReference: {fileID: 0}
-    - target: {fileID: 114925814688930684, guid: 7389f75358563aa47a425800d4884a65,
-        type: 2}
-      propertyPath: solver.IKPosition.z
-      value: 0.2212548
-      objectReference: {fileID: 0}
-    - target: {fileID: 114925814688930684, guid: 7389f75358563aa47a425800d4884a65,
-        type: 2}
-      propertyPath: solver.clampWeight
-      value: 0.885
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 7389f75358563aa47a425800d4884a65, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: 2b19ea0e4ab6c1f49bc5e933af8406a3, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1898906301
 GameObject:

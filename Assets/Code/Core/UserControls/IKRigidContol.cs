@@ -6,7 +6,7 @@
 using RootMotion.FinalIK;
 using UnityEngine;
 
-namespace MyNamespace
+namespace Core
 {
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(Animator))]
@@ -45,7 +45,7 @@ namespace MyNamespace
 		{
             float hortinput = Input.GetAxisRaw("Horizontal");
             float vertinput = Input.GetAxisRaw("Vertical");
-            float moveState = 0;
+            //float moveState = 0;
             aiming = false;
             movement = new Vector3(hortinput, 0f, vertinput);
  
