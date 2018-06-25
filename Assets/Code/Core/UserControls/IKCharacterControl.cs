@@ -19,6 +19,13 @@ namespace Core
         Ray ray;
         RaycastHit rayHit = new RaycastHit();
         Vector3 moveDirection = Vector3.zero;
+        Vector3 moveAnimation;
+        Transform cameraTransform;
+        Vector3 cameraForward;
+        float forwardAmount;
+        float turnAmount;
+
+
         public float crouchSpeed = 2.0f;
         public float walkSpeed = 3.0f;
         public float runSpeed = 6.0f;
@@ -36,29 +43,41 @@ namespace Core
             controller = GetComponent<CharacterController>();
             animator = GetComponent<Animator>();
             aimIK = GetComponent<AimIK>();
+            cameraTransform = Camera.main.transform;
+
         }
-		
-		// Update is called once per frame
-		void Update () 
-		{
+
+        // Update is called once per frame
+        void Update()
+        {
             float currentSpeed = runSpeed;
-            float moveState = 0;
+            //float moveState = 0;
             //aiming = false;
             if (controller.isGrounded)
             {
                 float moveX = Input.GetAxisRaw("Horizontal");
                 float moveY = Input.GetAxisRaw("Vertical");
                 moveDirection = new Vector3(moveX, 0.0f, moveY);
-                if (moveDirection.sqrMagnitude > 0)
-                    moveState = 1f;
+
+                if (cameraTransform != null)
+                {
+                    cameraForward = Vector3.Scale(cameraTransform.up, new Vector3(1, 0, 1)).normalized;
+                    moveAnimation = moveY * cameraForward + moveX * cameraTransform.right;
+                }
+                else
+                {
+                    moveAnimation = moveY * Vector3.forward + moveX * Vector3.right;
+                }
+                if (moveAnimation.sqrMagnitude > 1)
+                {
+                    moveAnimation.Normalize();
+                }
 
                 if (Input.GetButton("Aim"))
                 {
                     aimIK.enabled = true;
                     AimPoint();
                     currentSpeed = walkSpeed;
-                    if(moveDirection.sqrMagnitude > 0)
-                        moveState = 0.5f;
                     aiming = true;
                 }
                 else
@@ -76,20 +95,32 @@ namespace Core
                 {
                     aimIK.enabled = false;
                     currentSpeed = sprintSpeed;
-                    moveState = 1.5f;
+                    //moveState = 1.5f;
                 }
-                MovementAnimation(moveDirection.sqrMagnitude, moveState);
+                MovementAnimation(moveAnimation);
             }
             Turn(aiming);
             moveDirection.y -= gravity * Time.deltaTime;
             controller.Move(moveDirection * Time.deltaTime * currentSpeed);
-            Debug.Log("Movement Speed: "+ currentSpeed);
+            //Debug.Log("Movement Speed: "+ currentSpeed);
         }
 
-        private void MovementAnimation(float moving, float moveState)
+        private void MovementAnimation(Vector3 moveAnim)
         {
-            animator.SetFloat("MovementState", moveState);
+            if(moveAnim.magnitude > 1)
+            {
+                moveAnim.Normalize();
+            }
+
+            Vector3 localMovement = transform.InverseTransformDirection(moveAnimation);
+            turnAmount = localMovement.x;
+            forwardAmount = localMovement.z;
+
+            animator.SetFloat("Forward", forwardAmount, 0.1f, Time.deltaTime);
+            animator.SetFloat("Turn", turnAmount, 0.1f, Time.deltaTime);
+
         }
+
         void Turn(bool aiming)
         {
 

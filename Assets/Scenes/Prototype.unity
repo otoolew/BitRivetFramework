@@ -1499,7 +1499,7 @@ Prefab:
         type: 2}
       propertyPath: target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1684463658}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c266aed2205b1c04bb157945fff7c031, type: 2}
   m_IsPrefabParent: 0
@@ -1759,6 +1759,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1684463658 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4499832694003358, guid: 7389f75358563aa47a425800d4884a65,
+    type: 2}
+  m_PrefabInternal: {fileID: 1861881081}
 --- !u!1 &1782101588
 GameObject:
   m_ObjectHideFlags: 0
@@ -1859,6 +1864,21 @@ Prefab:
     - target: {fileID: 4499832694003358, guid: 7389f75358563aa47a425800d4884a65, type: 2}
       propertyPath: m_RootOrder
       value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 114925814688930684, guid: 7389f75358563aa47a425800d4884a65,
+        type: 2}
+      propertyPath: solver.IKPosition.x
+      value: 4.388371
+      objectReference: {fileID: 0}
+    - target: {fileID: 114925814688930684, guid: 7389f75358563aa47a425800d4884a65,
+        type: 2}
+      propertyPath: solver.IKPosition.z
+      value: 0.2212548
+      objectReference: {fileID: 0}
+    - target: {fileID: 114925814688930684, guid: 7389f75358563aa47a425800d4884a65,
+        type: 2}
+      propertyPath: solver.clampWeight
+      value: 0.885
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7389f75358563aa47a425800d4884a65, type: 2}
