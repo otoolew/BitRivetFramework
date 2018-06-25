@@ -24,13 +24,14 @@ namespace Core
         Vector3 cameraForward;
         float forwardAmount;
         float turnAmount;
-
-
+        float standingHeight;
+        float crouchingHeight;
         public float crouchSpeed = 2.0f;
         public float walkSpeed = 3.0f;
         public float runSpeed = 6.0f;
         public float sprintSpeed = 10.0f;
         public bool aiming;
+        public bool crouching;
         public float rotationSpeed = 0.15f;
         public float gravity = 20.0f;
         public Transform aimPoint;
@@ -44,7 +45,8 @@ namespace Core
             animator = GetComponent<Animator>();
             aimIK = GetComponent<AimIK>();
             cameraTransform = Camera.main.transform;
-
+            standingHeight = controller.height;
+            crouchingHeight = controller.height * 0.5f;
         }
 
         // Update is called once per frame
@@ -78,7 +80,7 @@ namespace Core
                     aimIK.enabled = true;
                     AimPoint();
                     currentSpeed = walkSpeed;
-                    aiming = true;
+                    aiming = true;               
                 }
                 else
                 {
@@ -88,7 +90,14 @@ namespace Core
 
                 if (Input.GetButton("Crouch"))
                 {
+                    crouching = true;
+                    controller.height = crouchingHeight;
                     //Debug.Log("Crouch Not Implemented!");
+                }
+                else
+                {
+                    crouching = false;
+                    controller.height = standingHeight;
                 }
 
                 if (Input.GetButton("Sprint"))
@@ -99,7 +108,7 @@ namespace Core
                 }
                 MovementAnimation(moveAnimation);
             }
-            Turn(aiming);
+            LegRotation(aiming);
             moveDirection.y -= gravity * Time.deltaTime;
             controller.Move(moveDirection * Time.deltaTime * currentSpeed);
             //Debug.Log("Movement Speed: "+ currentSpeed);
@@ -118,10 +127,10 @@ namespace Core
 
             animator.SetFloat("Forward", forwardAmount, 0.1f, Time.deltaTime);
             animator.SetFloat("Turn", turnAmount, 0.1f, Time.deltaTime);
-
+            animator.SetBool("Aiming", aiming);
         }
 
-        void Turn(bool aiming)
+        void LegRotation(bool aiming)
         {
 
             if (aiming)
