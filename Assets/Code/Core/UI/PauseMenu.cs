@@ -44,7 +44,7 @@ namespace Core
             //Set time.timescale to 0, this will cause animations and physics to stop updating
             Time.timeScale = 0;
             //call the ShowPausePanel function of the ShowPanels script
-            uiController.ShowPausePanel();
+            //uiController.ShowPausePanel();
         }
 
 
@@ -55,7 +55,7 @@ namespace Core
             //Set time.timescale to 1, this will cause animations and physics to continue updating at regular speed
             Time.timeScale = 1;
             //call the HidePausePanel function of the ShowPanels script
-            uiController.HidePausePanel();
+           // uiController.HidePausePanel();
         }
 	}
 }

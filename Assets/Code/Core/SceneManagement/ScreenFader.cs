@@ -6,6 +6,7 @@ namespace Core
 {
 	public class ScreenFader : MonoBehaviour 
 	{
+        UIController uiControl;
         public enum FadeType
         {
             Black, Loading, GameOver,
@@ -59,7 +60,6 @@ namespace Core
                 Destroy(gameObject);
                 return;
             }
-
             DontDestroyOnLoad(gameObject);
         }
 

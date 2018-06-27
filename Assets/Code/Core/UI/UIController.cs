@@ -4,67 +4,188 @@
 // Date:    20 JUNE 2018
 // ----------------------------------------------------------------------------
 using UnityEngine;
+using UnityEngine.UI;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Core
 {
 	public class UIController : MonoBehaviour 
 	{
-        public GameObject optionsTint;                          //Store a reference to the Game Object OptionsTint 
-        public GameObject pausePanel;                           //Store a reference to the Game Object PausePanel 
-        public GameObject gameOverPanel;
-        public GameObject debugPanel;
-        public GameObject messagePanel;
+        #region Fields / Properties
 
-        //Call this function to activate and display the Pause panel during game play
-        public void ShowPausePanel()
+        [SerializeField]
+        private bool alwaysDisplayMouse;
+        public bool AlwaysDisplayMouse
         {
-            pausePanel.SetActive(true);
-            optionsTint.SetActive(true);
+            get
+            {
+                return alwaysDisplayMouse;
+            }
+
+            set
+            {
+                alwaysDisplayMouse = value;
+            }
         }
 
-        //Call this function to deactivate and hide the Pause panel during game play
-        public void HidePausePanel()
+        [SerializeField]
+        private GameObject pauseCanvas;
+        public GameObject PauseCanvas
         {
-            pausePanel.SetActive(false);
-            optionsTint.SetActive(false);
+            get
+            {
+                return pauseCanvas;
+            }
 
-        }
-        ////Call this function to activate and display the GameOver panel during game play
-        public void ShowGameOverPanel()
-        {
-            gameOverPanel.SetActive(true);
-            optionsTint.SetActive(true);
-        }
-
-        //Call this function to deactivate and hide the GameOver panel during game play
-        public void HideGameOverPanel()
-        {
-            gameOverPanel.SetActive(false);
-            optionsTint.SetActive(false);
-
-        }
-        ////Call this function to activate and display the Debug panel during game play
-        public void ShowDebugPanel()
-        {
-            debugPanel.SetActive(true);
+            set
+            {
+                pauseCanvas = value;
+            }
         }
 
-        //Call this function to deactivate and hide the Debug panel during game play
-        public void HideDebugPanel()
+        [SerializeField]
+        private GameObject optionsCanvas;
+        public GameObject OptionsCanvas
         {
-            debugPanel.SetActive(false);
+            get
+            {
+                return optionsCanvas;
+            }
+
+            set
+            {
+                optionsCanvas = value;
+            }
         }
 
-        ////Call this function to activate and display the Debug panel during game play
-        public void ShowMessagePanel()
+        [SerializeField]
+        private GameObject controlsCanvas;
+        public GameObject ControlsCanvas
         {
-            messagePanel.SetActive(true);
+            get
+            {
+                return controlsCanvas;
+            }
+
+            set
+            {
+                controlsCanvas = value;
+            }
         }
 
-        //Call this function to deactivate and hide the Debug panel during game play
-        public void HideMessagePanel()
+        [SerializeField]
+        private GameObject audioCanvas;
+        public GameObject AudioCanvas
         {
-            messagePanel.SetActive(false);
+            get
+            {
+                return audioCanvas;
+            }
+
+            set
+            {
+                audioCanvas = value;
+            }
+        }
+
+        [SerializeField]
+        private bool inPause;
+        protected bool InPause
+        {
+            get
+            {
+                return inPause;
+            }
+
+            set
+            {
+                inPause = value;
+            }
+        }
+        #endregion
+
+        public Text someText;
+
+
+        void Start()
+        {
+            if (!alwaysDisplayMouse)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+
+            
+        }
+
+        public void Quit()
+        {
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#else
+		    Application.Quit();
+#endif
+        }
+
+        public void ExitPause()
+        {
+            InPause = true;
+            SwitchPauseState();
+        }
+
+        public void RestartLevel()
+        {
+            InPause = true;
+            SwitchPauseState();
+
+        }
+
+        void Update()
+        {
+            if (PlayerInput.Instance != null && PlayerInput.Instance.Pause)
+            {
+                SwitchPauseState();
+            }
+        }
+
+        protected void SwitchPauseState()
+        {
+            if (InPause && Time.timeScale > 0 || !InPause && ScreenFader.IsFading)
+                return;
+
+            if (!alwaysDisplayMouse)
+            {
+                Cursor.lockState = InPause ? CursorLockMode.Locked : CursorLockMode.None;
+                Cursor.visible = !InPause;
+            }
+
+            if (InPause)
+                PlayerInput.Instance.GainControl();
+            else
+                PlayerInput.Instance.ReleaseControl();
+
+            Time.timeScale = InPause ? 1 : 0;
+
+            if (PauseCanvas)
+                PauseCanvas.SetActive(!InPause);
+
+            if (OptionsCanvas)
+                OptionsCanvas.SetActive(false);
+
+            if (ControlsCanvas)
+                ControlsCanvas.SetActive(false);
+
+            if (AudioCanvas)
+                AudioCanvas.SetActive(false);
+
+            InPause = !InPause;
         }
     }
 }
