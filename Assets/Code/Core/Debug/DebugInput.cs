@@ -1,17 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 namespace Core
 {
-	public class PlayerInput : MonoBehaviour 
-	{
-        public static PlayerInput Instance
+    public class DebugInput : MonoBehaviour
+    {
+        public static DebugInput Instance
         {
             get { return s_Instance; }
         }
 
-        protected static PlayerInput s_Instance;
+        protected static DebugInput s_Instance;
 
         [HideInInspector]
         public bool playerControllerInputBlocked;
@@ -34,12 +33,12 @@ namespace Core
         }
         public bool CrouchInput
         {
-            get { return Input.GetButton("Crouch") && !playerControllerInputBlocked && !externalInputBlocked; }
+            get { return crouch && !playerControllerInputBlocked && !externalInputBlocked; }
         }
 
         public bool AimInput
         {
-            get { return Input.GetButton("Aim") && !playerControllerInputBlocked && !externalInputBlocked; }
+            get { return aim && !playerControllerInputBlocked && !externalInputBlocked; }
         }
 
         public bool Attack
@@ -57,7 +56,7 @@ namespace Core
             if (s_Instance == null)
                 s_Instance = this;
             else if (s_Instance != this)
-                throw new UnityException("There cannot be more than one PlayerInput script.  The instances are " + s_Instance.name + " and " + name + ".");
+                throw new UnityException("There cannot be more than one DebugInput script.  The instances are " + s_Instance.name + " and " + name + ".");
         }
 
 
@@ -70,7 +69,10 @@ namespace Core
             {
 
             }
+            if (Input.GetButtonDown("Aim"))
+            {
 
+            }
             pause = Input.GetButtonDown("Pause");
         }
 

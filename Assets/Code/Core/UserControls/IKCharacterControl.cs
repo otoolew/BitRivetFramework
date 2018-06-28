@@ -14,6 +14,7 @@ namespace Core
     public class IKCharacterControl : MonoBehaviour 
 	{
         // Components
+        public PlayerInput PlayerInput { get; private set; }
         CharacterController controller;
         Animator animator;
         AimIK aimIK;
@@ -34,8 +35,6 @@ namespace Core
         public float crouchSpeed = 2.0f;
         public float walkSpeed = 3.0f;
         public float runSpeed = 6.0f;
-        public bool aiming;
-        public bool crouching;
         public float rotationSpeed = 0.15f;
         public float gravity = 20.0f;
         public Transform aimPoint;
@@ -45,6 +44,15 @@ namespace Core
         // Use this for initialization
         void Start () 
 		{
+            try
+            {
+                PlayerInput = FindObjectOfType<PlayerInput>();
+            }
+            catch (System.NullReferenceException)
+            {
+                throw new UnityException("There is no PlayerInput Script. Please add one.");
+            }
+
             controller = GetComponent<CharacterController>();
             animator = GetComponent<Animator>();
             aimIK = GetComponent<AimIK>();
@@ -61,51 +69,38 @@ namespace Core
             //aiming = false;
             if (controller.isGrounded)
             {
-                float moveX = Input.GetAxisRaw("Horizontal");
-                float moveY = Input.GetAxisRaw("Vertical");
-                moveDirection = new Vector3(moveX, 0.0f, moveY);
+                moveDirection = new Vector3(PlayerInput.MoveInput.x, 0.0f, PlayerInput.MoveInput.y);
 
                 if (cameraTransform != null)
                 {
                     cameraForward = Vector3.Scale(cameraTransform.up, new Vector3(1, 0, 1)).normalized;
-                    moveAnimation = moveY * cameraForward + moveX * cameraTransform.right;
+                    moveAnimation = PlayerInput.MoveInput.y * cameraForward + PlayerInput.MoveInput.x * cameraTransform.right;
                 }
                 else
                 {
-                    moveAnimation = moveY * Vector3.forward + moveX * Vector3.right;
+                    moveAnimation = PlayerInput.MoveInput.y * Vector3.forward + PlayerInput.MoveInput.x * Vector3.right;
                 }
                 if (moveAnimation.sqrMagnitude > 1)
                 {
                     moveAnimation.Normalize();
                 }
 
-                if (Input.GetButton("Aim"))
+                if (PlayerInput.AimInput)
                 {
                     aimIK.enabled = true;
                     AimPoint();
-                    currentSpeed = walkSpeed;
-                    aiming = true;               
+                    currentSpeed = walkSpeed;              
                 }
                 else
                 {
                     aimIK.enabled = false;
-                    aiming = false;
                 }
 
-                if (Input.GetButton("Crouch"))
-                {          
-                    crouching = true;
-                }
-                else
-                {
-                    crouching = false;
-                }
                 MovementAnimation(moveAnimation);
+                LegRotation(PlayerInput.AimInput);
             }
-            LegRotation(aiming);
             moveDirection.y -= gravity * Time.deltaTime;
             controller.Move(moveDirection * Time.deltaTime * currentSpeed);
-            //Debug.Log("Movement Speed: "+ currentSpeed);
         }
 
         private void MovementAnimation(Vector3 moveAnim)
@@ -121,8 +116,8 @@ namespace Core
 
             animator.SetFloat("Forward", forwardAmount, 0.1f, Time.deltaTime);
             animator.SetFloat("Turn", turnAmount, 0.1f, Time.deltaTime);
-            animator.SetBool("Aiming", aiming);
-            animator.SetBool("Crouching", crouching);
+            animator.SetBool("Aiming", PlayerInput.AimInput);
+            animator.SetBool("Crouching", PlayerInput.CrouchInput);
         }
 
         void LegRotation(bool aiming)

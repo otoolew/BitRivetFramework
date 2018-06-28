@@ -1,13 +1,9 @@
 ﻿// ----------------------------------------------------------------------------
 // Author:  William O'Toole
 // Project: BitRivet Framework
-// Date:    20 JUNE 2018
+// Date:    27 JUNE 2018
 // ----------------------------------------------------------------------------
 using UnityEngine;
-using UnityEngine.UI;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 namespace Core
 {
@@ -106,34 +102,7 @@ namespace Core
         }
         #endregion
 
-        public Text someText;
-
-
-        void Start()
-        {
-            if (!alwaysDisplayMouse)
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-
-            
-        }
-
-        public void Quit()
-        {
-#if UNITY_EDITOR
-            EditorApplication.isPlaying = false;
-#else
-		    Application.Quit();
-#endif
-        }
-
+  
         public void ExitPause()
         {
             InPause = true;
@@ -159,12 +128,6 @@ namespace Core
         {
             if (InPause && Time.timeScale > 0 || !InPause && ScreenFader.IsFading)
                 return;
-
-            if (!alwaysDisplayMouse)
-            {
-                Cursor.lockState = InPause ? CursorLockMode.Locked : CursorLockMode.None;
-                Cursor.visible = !InPause;
-            }
 
             if (InPause)
                 PlayerInput.Instance.GainControl();

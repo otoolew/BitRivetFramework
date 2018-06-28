@@ -10,6 +10,7 @@ namespace Core
     [RequireComponent(typeof(CharacterController))]
     public class TDCharacterControl : MonoBehaviour
     {
+        public PlayerInput playerInput;
         public float movementSpeed = 6.0f;
         public float rotationSpeed = 0.15f;
         public float lookSpeed = 20f;
@@ -37,27 +38,17 @@ namespace Core
         {
             if (controller.isGrounded)
             {
-                float moveHorizontal = Input.GetAxisRaw("Horizontal");
-                float moveVertical = Input.GetAxisRaw("Vertical");
-                moveDirection = new Vector3(moveHorizontal, 0.0f, moveVertical);
+                //float moveHorizontal = Input.GetAxisRaw("Horizontal");
+                //float moveVertical = Input.GetAxisRaw("Vertical");
+                moveDirection = new Vector3(playerInput.MoveInput.x, 0.0f, playerInput.MoveInput.y);
 
-                if (Input.GetMouseButton(1))
+                if (playerInput.AimInput)
                 {
                     Aiming();
                 }
                 else if (moveDirection != Vector3.zero)
                 {
                     transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection.normalized), rotationSpeed);
-                }
-
-                if (Input.GetButton("Jump"))
-                {
-                    moveDirection.y = jumpSpeed;
-                }
-                    
-                if (Input.GetButton("Crouch"))
-                {
-                    
                 }
             }
             moveDirection.y -= gravity * Time.deltaTime;
