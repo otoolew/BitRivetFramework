@@ -6,11 +6,11 @@ namespace Core
 {
     public class DummyDetect : MonoBehaviour
     {
-
+        LineRenderer lineRenderer;
         // Use this for initialization
         void Start()
         {
-
+            lineRenderer = GetComponent<LineRenderer>();
         }
 
         // Update is called once per frame

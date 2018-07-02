@@ -37,9 +37,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4636263274365368}
+  - component: {fileID: 114450076919595278}
+  - component: {fileID: 114674448212355606}
   m_Layer: 10
   m_Name: DummyTarget
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,7 +57,7 @@ GameObject:
   - component: {fileID: 33673175615951318}
   - component: {fileID: 23321945512666092}
   - component: {fileID: 65987417697856042}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +75,7 @@ GameObject:
   - component: {fileID: 33935625969595170}
   - component: {fileID: 23273641803838588}
   - component: {fileID: 65153926640645210}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +90,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4623214459369762}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Arms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +125,7 @@ GameObject:
   - component: {fileID: 4670669989900958}
   - component: {fileID: 33453062204388220}
   - component: {fileID: 23969636982412766}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: weapon_glock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +173,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4273299624867468}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -605,6 +607,36 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114450076919595278
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1293303330144462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b864e22809735964689fbd07cae7fb67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114674448212355606
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1293303330144462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fc4fec07b0450c48be989a00e83aea3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRadius: 8.11
+  viewAngle: 130
+  detectionRate: 0.1
+  detectionTag: DetectionPoint
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  visibleTargets: []
 --- !u!135 &135766706001288360
 SphereCollider:
   m_ObjectHideFlags: 1

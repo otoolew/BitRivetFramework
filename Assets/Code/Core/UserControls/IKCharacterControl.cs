@@ -80,11 +80,13 @@ namespace Core
                 {
                     moveAnimation = PlayerInput.MoveInput.y * Vector3.forward + PlayerInput.MoveInput.x * Vector3.right;
                 }
+
                 if (moveAnimation.sqrMagnitude > 1)
                 {
                     moveAnimation.Normalize();
                 }
 
+                // Player Aiming Check
                 if (PlayerInput.AimInput)
                 {
                     aimIK.enabled = true;
@@ -95,6 +97,10 @@ namespace Core
                 {
                     aimIK.enabled = false;
                 }
+                //Crouch Speed Check
+                if (PlayerInput.CrouchInput)             
+                    currentSpeed = crouchSpeed;
+                
 
                 MovementAnimation(moveAnimation);
                 LegRotation(PlayerInput.AimInput);

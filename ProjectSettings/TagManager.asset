@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - AimPoint
+  - DetectionPoint
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - PostProcessing
   - Floor
   - Targetable
-  - 
-  - 
+  - Detectable
+  - Damageable
   - 
   - 
   - 
