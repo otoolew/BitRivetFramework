@@ -5,8 +5,8 @@ using UnityEngine;
 namespace Game
 {
 
-	public class VisionDetection : MonoBehaviour 
-	{
+    public class VisionDetection : MonoBehaviour
+    {
         float timer = 0;
         Ray ray;
         RaycastHit rayHit;
@@ -26,7 +26,7 @@ namespace Game
         }
 
         [SerializeField]
-        [Range(0,360)]
+        [Range(0, 360)]
         private float viewAngle;
         public float ViewAngle
         {
@@ -55,15 +55,7 @@ namespace Game
                 detectionRate = value;
             }
         }
-        [SerializeField]
-        private string detectionTag;
-        public string DetectionTag
-        {
-            get
-            {
-                return detectionTag;
-            }
-        }
+
         public LayerMask targetLayer;
 
         [SerializeField]
@@ -78,6 +70,20 @@ namespace Game
             set
             {
                 visibleTargets = value;
+            }
+        }
+
+        [SerializeField]
+        private string detectionTag;
+        public string DetectionTag
+        {
+            get
+            {
+                return detectionTag;
+            }
+            set
+            {
+                detectionTag = value;
             }
         }
 
@@ -111,11 +117,11 @@ namespace Game
                 if (Vector3.Angle(transform.forward, directionToTarget) < ViewAngle / 2)
                 {
                     float targetDistance = Vector3.Distance(transform.position, target.position);
-         
+
                     if (Physics.Raycast(transform.position, directionToTarget, out rayHit, targetDistance))
                     {
                         //Debug.Log("Debug RayHit: " + rayHit.collider.name);
-                        if(rayHit.collider.transform.tag.Equals(detectionTag))
+                        if (rayHit.collider.transform.tag.Equals(DetectionTag))
                             visibleTargets.Add(rayHit.collider.transform);
                     }
                 }
