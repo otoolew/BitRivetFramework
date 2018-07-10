@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MyNamespace
+namespace Core
 {
 	public class DebugDrawSphere : MonoBehaviour 
 	{
@@ -10,8 +10,13 @@ namespace MyNamespace
         public float sphereCastRadius;
         public string tagCheck;
         public LayerMask layerMask;
-		// Update is called once per frame
-		void Update () {
+        public OnSightListener onSightListener;
+        private void Start()
+        {
+            onSightListener = GetComponent<OnSightListener>();
+        }
+        // Update is called once per frame
+        void Update () {
             DrawSphereForward();
 
         }
@@ -25,6 +30,7 @@ namespace MyNamespace
             if (Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out rayHit, sphereCastDistance, layerMask))
             {
                 Debug.Log("Layer " + layerMask.ToString() + " was hit.");
+                onSightListener.OnEventRaised();
                 if (rayHit.collider.tag == tagCheck)
                 {
                     Debug.Log("Tag " +tagCheck + " is in sight.");
