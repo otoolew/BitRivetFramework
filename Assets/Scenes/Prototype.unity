@@ -453,23 +453,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1181411426297704, guid: ac10ca5c5d367ad468aaca62cbe48ce1,
     type: 2}
   m_PrefabInternal: {fileID: 1800309990}
---- !u!114 &499132023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 499132017}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 177d4d5263aa67d4b83a2225430f1c0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TargetTag: Enemy
-  AttachedCollider: {fileID: 0}
-  TargetsInRange: []
-  SearchTimer: 0
-  SearchRate: 0
-  HadTarget: 0
 --- !u!114 &499132024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -481,8 +464,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b63961fcfb9348c42af6ccbe199d19d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  killKey: 107
+  maxHealth: 100
+  startingHealth: 100
+  currentHealth: 0
   isDead: 0
+  killKey: 107
+--- !u!114 &499132025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 499132017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4db54ed4f10613e4eb4c82c065f90e3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  position: {x: 0, y: 0, z: 0}
+  targetTransform: {fileID: 348335333}
+  HealthController: {fileID: 499132024}
 --- !u!1 &499425185
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,6 +630,7 @@ Prefab:
     - {fileID: 114983720086520860, guid: 944ec6361adc50944a727263dbfc905a, type: 2}
     - {fileID: 114412837914961298, guid: 944ec6361adc50944a727263dbfc905a, type: 2}
     - {fileID: 114053094797518964, guid: 944ec6361adc50944a727263dbfc905a, type: 2}
+    - {fileID: 114878002404964046, guid: 944ec6361adc50944a727263dbfc905a, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 944ec6361adc50944a727263dbfc905a, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &691046076
@@ -2336,6 +2337,25 @@ Mesh:
   m_MeshMetrics[0]: 1
   m_MeshMetrics[1]: 1
   m_MeshOptimized: 0
+--- !u!1 &1426412592 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1011371901723808, guid: 944ec6361adc50944a727263dbfc905a,
+    type: 2}
+  m_PrefabInternal: {fileID: 631507559}
+--- !u!114 &1426412596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1426412592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b67eb0c78ea97b49aa37af792c02f84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetsInRange: []
+  currentTargetable: {fileID: 0}
+  HadTarget: 0
 --- !u!1 &1444810300
 GameObject:
   m_ObjectHideFlags: 0
