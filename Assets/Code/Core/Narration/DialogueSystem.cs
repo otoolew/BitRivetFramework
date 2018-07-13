@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MyNamespace
+namespace Core
 {
 	public class DialogueSystem : MonoBehaviour 
 	{
