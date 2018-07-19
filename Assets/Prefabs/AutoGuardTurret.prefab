@@ -38,7 +38,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4596300214213756}
   - component: {fileID: 114850540856932396}
-  - component: {fileID: 114558134977246214}
   - component: {fileID: 135849760880611282}
   m_Layer: 0
   m_Name: AutoGuardTurret
@@ -309,23 +308,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   onSightListener: {fileID: 114277453346070760}
---- !u!114 &114558134977246214
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1325265909176960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 177d4d5263aa67d4b83a2225430f1c0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TargetTag: Player
-  AttachedCollider: {fileID: 0}
-  TargetsInRange: []
-  SearchTimer: 0
-  SearchRate: 0
-  HadTarget: 0
 --- !u!114 &114772127455442144
 MonoBehaviour:
   m_ObjectHideFlags: 1
