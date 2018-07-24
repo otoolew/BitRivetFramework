@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 5f33fba32c99efb49ac964c31b1cf8d2
+guid: 328a82e0e60cb97439886d40b0e46ebd
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: Bip001
     100002: Bip001 Head
@@ -183,6 +183,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 0.0254
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
