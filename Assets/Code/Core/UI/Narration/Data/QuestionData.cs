@@ -8,5 +8,6 @@ namespace Core
     {
         public string questionText;
         public List<AnswerData> answerList;
+        
     }
 }

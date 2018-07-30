@@ -15,5 +15,7 @@ MonoBehaviour:
   answerList:
   - answerText: True
     isCorrect: 0
+    nextQuestion: {fileID: 11400000, guid: 9278159a5ff34994c82c3ad61f571dcd, type: 2}
   - answerText: False
     isCorrect: 1
+    nextQuestion: {fileID: 11400000, guid: fe96a5f139efd7244b6742af5eff5ea5, type: 2}

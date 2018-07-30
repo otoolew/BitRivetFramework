@@ -10,5 +10,6 @@ namespace Core
 	{
         public string answerText;
         public bool isCorrect;
+        public QuestionData nextQuestion;
     }
 }

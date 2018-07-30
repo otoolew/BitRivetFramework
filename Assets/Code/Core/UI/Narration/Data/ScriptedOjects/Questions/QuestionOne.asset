@@ -15,7 +15,10 @@ MonoBehaviour:
   answerList:
   - answerText: Answer One
     isCorrect: 0
+    nextQuestion: {fileID: 11400000, guid: 1e5c3cf9dc566304aa32b615a1b2319f, type: 2}
   - answerText: Answer Two
     isCorrect: 1
+    nextQuestion: {fileID: 11400000, guid: 5fcc7be7d4d269348b73cfb3dd2892c3, type: 2}
   - answerText: Answer Three
     isCorrect: 0
+    nextQuestion: {fileID: 11400000, guid: 9278159a5ff34994c82c3ad61f571dcd, type: 2}
