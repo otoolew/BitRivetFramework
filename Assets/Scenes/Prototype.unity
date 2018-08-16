@@ -522,11 +522,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerControllerInputBlocked: 0
   pauseKey: 27
-  clickKey: 0
-  attackKey: 0
-  aimKey: 0
-  crouchKey: 0
-  interactKey: 0
+  clickKey: 101
+  attackKey: 323
+  aimKey: 324
+  crouchKey: 304
+  interactKey: 32
 --- !u!4 &594284709
 Transform:
   m_ObjectHideFlags: 0

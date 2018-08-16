@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GMData: {fileID: 11400000, guid: 8735bed60442f1b4e88bbaa998d010fc, type: 2}
-  titleScene: Start
+  titleScene: TitleScreen
   startingScene: Prototype
   sceneController: {fileID: 114378770558060460}
   OnGameStateChanged:
