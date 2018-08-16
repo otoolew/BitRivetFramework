@@ -4,74 +4,77 @@ using UnityEngine;
 
 namespace Core
 {
-	public class PlayerInput : MonoBehaviour 
+	public class PlayerInput : Singleton<PlayerInput> 
 	{
-        public static PlayerInput Instance
-        {
-            get { return s_Instance; }
-        }
-
-        protected static PlayerInput s_Instance;
-
-        [HideInInspector]
+        //[HideInInspector]
         public bool playerControllerInputBlocked;
-
-        protected Vector2 movement;
-        protected bool crouch;
-        protected bool aim;
-        protected bool m_Attack;
-        protected bool pause;
         protected bool externalInputBlocked;
 
+        public KeyCode pauseKey;
+        protected bool m_Pause;
+
+        protected Vector2 m_Movement;
         public Vector2 MoveInput
         {
             get
             {
                 if (playerControllerInputBlocked || externalInputBlocked)
                     return Vector2.zero;
-                return movement;
+                return m_Movement;
             }
         }
-        public bool CrouchInput
+
+        public KeyCode clickKey;
+        protected bool m_Click;
+        public bool Click
         {
-            get { return Input.GetButton("Crouch") && !playerControllerInputBlocked && !externalInputBlocked; }
+            get { return m_Click && !playerControllerInputBlocked && !externalInputBlocked; }
         }
 
-        public bool AimInput
-        {
-            get { return Input.GetButton("Aim") && !playerControllerInputBlocked && !externalInputBlocked; }
-        }
 
+
+        public KeyCode attackKey;
+        protected bool m_Attack;
         public bool Attack
         {
             get { return m_Attack && !playerControllerInputBlocked && !externalInputBlocked; }
         }
 
-        public bool Pause
+        public KeyCode aimKey;
+        protected bool m_Aim;
+        public bool AimInput
         {
-            get { return pause; }
+            get { return Input.GetKey(aimKey) && !playerControllerInputBlocked && !externalInputBlocked; }
         }
 
-        void Awake()
+        public KeyCode crouchKey;
+        protected bool m_Crouch;
+        public bool CrouchInput
         {
-            if (s_Instance == null)
-                s_Instance = this;
-            else if (s_Instance != this)
-                throw new UnityException("There cannot be more than one PlayerInput script.  The instances are " + s_Instance.name + " and " + name + ".");
+            get { return m_Crouch && !playerControllerInputBlocked && !externalInputBlocked; }
         }
 
-
+        public KeyCode interactKey;
+        protected bool m_Interact;
+        public bool Interact
+        {
+            get { return m_Interact && !playerControllerInputBlocked && !externalInputBlocked; }
+        }
+        private void Start()
+        {
+            GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
+        }
         void Update()
         {
-            movement.Set(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-            crouch = Input.GetButton("Crouch");
-
-            if (Input.GetButtonDown("Fire"))
-            {
-
+            if (Input.GetKeyUp(pauseKey)){
+                GameManager.Instance.TogglePause();
             }
+            m_Movement.Set(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            m_Crouch = Input.GetKey(crouchKey);
+            m_Aim = Input.GetKey(aimKey);
+            m_Interact = Input.GetKeyDown(interactKey);
+            m_Click = Input.GetKeyDown(clickKey);
 
-            pause = Input.GetButtonDown("Pause");
         }
 
         public bool HaveControl()
@@ -79,7 +82,7 @@ namespace Core
             return !externalInputBlocked;
         }
 
-        public void ReleaseControl()
+        public void FreezeControl()
         {
             externalInputBlocked = true;
         }
@@ -88,5 +91,23 @@ namespace Core
         {
             externalInputBlocked = false;
         }
+
+        private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
+        {
+            switch (currentState)
+            {
+                case GameManager.GameState.PAUSED:
+                    FreezeControl();
+                    break;
+                case GameManager.GameState.RUNNING:
+                    GainControl();
+                    break;
+                default:
+                    Debug.Log("PlayerInput: Default Case Hit");
+                    FreezeControl();
+                    break;
+            }
+        }
+
     }
 }

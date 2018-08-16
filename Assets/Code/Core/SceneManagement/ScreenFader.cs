@@ -6,7 +6,7 @@ namespace Core
 {
 	public class ScreenFader : MonoBehaviour 
 	{
-        UIController uiControl;
+        
         public enum FadeType
         {
             Black, Loading, GameOver,

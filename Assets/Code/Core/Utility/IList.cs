@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-namespace Core
+namespace Core.Utility
 {
     public interface IList<T> : IEnumerable, ICollection<T>, IEnumerable<T>
     {

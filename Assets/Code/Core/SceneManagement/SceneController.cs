@@ -7,62 +7,53 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
-namespace Core
+public class SceneController : MonoBehaviour 
 {
-	public class SceneController : MonoBehaviour 
-	{
-        public event Action BeforeSceneUnload;
-        public event Action AfterSceneLoad;
-        public CanvasGroup faderCanvasGroup;
-        public float fadeDuration = 1f;
-        public string startingSceneName = "Prototype";
-        private bool isFading;
+    public CanvasGroup screenFadeCanvas;
+    public float fadeDuration = 1f;
 
-        //private IEnumerator Start()
-        //{
-        //    faderCanvasGroup.alpha = 1f;    
-        //    yield return StartCoroutine(LoadSceneAndSetActive(startingSceneName));
-        //    StartCoroutine(Fade(0f));
-        //}
-        public void FadeAndLoadScene(string sceneName)
-        {
-            if (!isFading)
-            {
-                StartCoroutine(FadeAndSwitchScenes(sceneName));
-            }
-        }
-        private IEnumerator FadeAndSwitchScenes(string sceneName)
-        {
-            yield return StartCoroutine(Fade(1f));
-            if (BeforeSceneUnload != null)
-                BeforeSceneUnload();
-            yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
-            yield return StartCoroutine(LoadSceneAndSetActive(sceneName));
-            if (AfterSceneLoad != null)
-                AfterSceneLoad();
+    public string startingSceneName = "Boot";
+    private bool isFading;
 
-            yield return StartCoroutine(Fade(0f));
-        }
-        private IEnumerator LoadSceneAndSetActive(string sceneName)
+    public Events.EventFadeComplete OnSceneChangeStart;
+    public Events.EventFadeComplete OnSceneChangeComplete;
+
+
+    public void FadeAndLoadScene(string sceneName)
+    {
+        if (!isFading)
         {
-            yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-            Scene newlyLoadedScene = SceneManager.GetSceneAt(SceneManager.sceneCount - 1);
-            SceneManager.SetActiveScene(newlyLoadedScene);
+            StartCoroutine(FadeAndSwitchScenes(sceneName));
         }
-        private IEnumerator Fade(float finalAlpha)
+    }
+    private IEnumerator FadeAndSwitchScenes(string sceneName)
+    {
+        yield return StartCoroutine(Fade(1f));
+        yield return SceneManager.LoadSceneAsync(sceneName);
+        OnSceneChangeStart.Invoke(true);
+        yield return StartCoroutine(Fade(0f));
+        OnSceneChangeComplete.Invoke(true);
+    }
+    private IEnumerator LoadSceneAndSetActive(string sceneName)
+    {
+        yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        Scene newlyLoadedScene = SceneManager.GetSceneAt(SceneManager.sceneCount - 1);
+        SceneManager.SetActiveScene(newlyLoadedScene);
+    }
+    private IEnumerator Fade(float finalAlpha)
+    {
+        isFading = true;
+        screenFadeCanvas.blocksRaycasts = true;
+        float fadeSpeed = Mathf.Abs(screenFadeCanvas.alpha - finalAlpha) / fadeDuration;
+        while (!Mathf.Approximately(screenFadeCanvas.alpha, finalAlpha))
         {
-            isFading = true;
-            faderCanvasGroup.blocksRaycasts = true;
-            float fadeSpeed = Mathf.Abs(faderCanvasGroup.alpha - finalAlpha) / fadeDuration;
-            while (!Mathf.Approximately(faderCanvasGroup.alpha, finalAlpha))
-            {
-                faderCanvasGroup.alpha = Mathf.MoveTowards(faderCanvasGroup.alpha, finalAlpha,
-                    fadeSpeed * Time.deltaTime);
-                yield return null;
-            }
-            isFading = false;
-            faderCanvasGroup.blocksRaycasts = false;
+            screenFadeCanvas.alpha = Mathf.MoveTowards(screenFadeCanvas.alpha, finalAlpha,
+                fadeSpeed * Time.deltaTime);
+            yield return null;
         }
+        isFading = false;
+        screenFadeCanvas.blocksRaycasts = false;
     }
 }

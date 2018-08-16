@@ -4,20 +4,9 @@ using UnityEngine;
 
 namespace Core
 {
-	public class DialogueData : MonoBehaviour 
+    [CreateAssetMenu(menuName = "Dialogue/Dialogue Line")]
+    public class DialogueData : ScriptableObject 
 	{
-        public QuestionData questionConfig;
-
-		// Use this for initialization
-		private void Start () 
-		{
-			
-		}
-
-		// Update is called once per frame
-		private void Update () 
-		{
-			
-		}
-	}
+        public List<DialogueLineData> DialogueLineList;
+    }
 }
