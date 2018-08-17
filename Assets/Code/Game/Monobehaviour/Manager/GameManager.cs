@@ -20,7 +20,7 @@ public class GameManager : Singleton<GameManager>{
 
     public EventGameState OnGameStateChanged;
     
-    GameState _currentGameState = GameState.SCENECHANGE;
+    GameState _currentGameState = GameState.RUNNING;
 
     string _currentLevelName;
 

@@ -2155,7 +2155,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh40218
+  m_Name: pb_Mesh25064
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -2405,6 +2405,59 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1601175915 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100048, guid: 60e3152f06c30ab4b97fa503f8639b68,
+    type: 3}
+  m_PrefabInternal: {fileID: 312015110}
+--- !u!143 &1601175916
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1601175915}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2.5
+  m_Radius: 0.65
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1.25, z: 0}
+--- !u!135 &1601175917
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1601175915}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.22
+  m_Center: {x: 0, y: 1.25, z: 0}
+--- !u!114 &1601175918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1601175915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 661592171a2e650438407a99b87168c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speakingRange: 10
+  dialogue:
+    speakerName: Joe
+    speakerImage: {fileID: 21300000, guid: 9b83768f7e3589e4ba49b47c630ff48b, type: 3}
+    sentences:
+    - Hey man whats up?
+    - Good to see you.
+    - Talk to you later!
 --- !u!1001 &1603014430
 Prefab:
   m_ObjectHideFlags: 0
@@ -2501,40 +2554,6 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224432651112800592, guid: 3ad12a8478ff04d42bca60882606587d,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: -2.300003
-      objectReference: {fileID: 0}
-    - target: {fileID: 114256735599992756, guid: 3ad12a8478ff04d42bca60882606587d,
-        type: 2}
-      propertyPath: m_FontData.m_FontSize
-      value: 72
-      objectReference: {fileID: 0}
-    - target: {fileID: 114256735599992756, guid: 3ad12a8478ff04d42bca60882606587d,
-        type: 2}
-      propertyPath: m_FontData.m_MinSize
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 114256735599992756, guid: 3ad12a8478ff04d42bca60882606587d,
-        type: 2}
-      propertyPath: m_FontData.m_BestFit
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1055734517813404, guid: 3ad12a8478ff04d42bca60882606587d, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224429577414302744, guid: 3ad12a8478ff04d42bca60882606587d,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224943691745725094, guid: 3ad12a8478ff04d42bca60882606587d,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ad12a8478ff04d42bca60882606587d, type: 2}

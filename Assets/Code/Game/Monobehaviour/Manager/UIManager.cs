@@ -2,6 +2,7 @@
 
 public class UIManager : MonoBehaviour
 {
+
     [SerializeField] private PauseMenu _pauseMenu;
 
     private void Start()
