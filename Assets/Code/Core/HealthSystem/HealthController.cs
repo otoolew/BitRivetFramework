@@ -39,12 +39,7 @@ public class HealthController : MonoBehaviour
     {
         currentHealth = ActorStats.Endurance * 10;
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K)){
-            TakeDamage(10);
-        }
-    }
+
     public void TakeDamage(float damageValue)
     {
         currentHealth -= damageValue;

@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 5582cab1914d37c4ca5bab03fcb93ddf
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - wayPointCircuit: {fileID: 114625896230387506, guid: 68c31ac98247e76408fcc544b21779ae,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

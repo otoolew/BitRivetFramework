@@ -2209,13 +2209,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActorStats: {fileID: 11400000, guid: 7d67588782ba6b545bbe167a8c72a7e2, type: 2}
   currentHealth: 0
-  isDead: 0
-  killKey: 107
-  OnDamageZoneHit:
+  onDeath:
     m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Events+EventHitDamageZone, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+      m_Calls:
+      - m_Target: {fileID: 114170928257131488}
+        m_MethodName: HandleDeath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114170928257131488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2228,7 +2237,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActorStats: {fileID: 11400000, guid: 7d67588782ba6b545bbe167a8c72a7e2, type: 2}
-  IsHostile: 0
 --- !u!114 &114224884800680050
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2447,7 +2455,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  damage: 2
+  damage: 10
 --- !u!114 &114893418252585280
 MonoBehaviour:
   m_ObjectHideFlags: 1

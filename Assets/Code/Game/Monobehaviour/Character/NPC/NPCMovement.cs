@@ -7,6 +7,11 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class NPCMovement : MonoBehaviour
 {
+    #region Components
+    NavMeshAgent navAgent;
+    Animator animator;
+    #endregion
+
     #region Fields / Properties      
     // Character Stats
     public float crouchSpeed = 2.0f;
@@ -32,26 +37,9 @@ public class NPCMovement : MonoBehaviour
         get { return destination; }
         set { destination = value; }
     }
-
-
-    #endregion
-    #region Components
-    NavMeshAgent navAgent;
-    public NavMeshAgent NavAgent
-    {
-        get { return navAgent; }
-        private set { navAgent = value; }
-    }
-    Animator animator;
-    public Animator Animator
-    {
-        get { return animator; }
-        private set { animator = value; }
-    }
     public Transform TargetPoint;
-
     #endregion
-
+    public float MoveVelocity;
     // Use this for initialization
     void Start()
     {
@@ -63,7 +51,27 @@ public class NPCMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        MovementAnimation();
+        destination = TargetPoint.position;
+        //animator.SetFloat("MovementVelocity", navAgent.velocity.magnitude);
+    }
+    private void MovementAnimation()
+    {
+        MoveVelocity = navAgent.velocity.magnitude;
+        animator.SetFloat("MoveVelocity", MoveVelocity);
+        //if (navAgent.velocity.magnitude > 0)
+        //{
+        //    animator.SetFloat("Forward", forwardAmount, 0.1f, Time.deltaTime);
+        //}
 
+        //Vector3 localMovement = transform.InverseTransformDirection(moveAnim);
+        //turnAmount = localMovement.x;
+        //forwardAmount = localMovement.z;
+
+        //animator.SetFloat("Forward", forwardAmount, 0.1f, Time.deltaTime);
+        //animator.SetFloat("Turn", turnAmount, 0.1f, Time.deltaTime);
+        //animator.SetBool("Aiming", PlayerInput.AimInput);
+        //animator.SetBool("Crouching", PlayerInput.CrouchInput);
     }
 }
 
