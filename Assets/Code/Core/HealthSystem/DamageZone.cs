@@ -1,21 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace Core
+using UnityEngine.Events;
+
+public class DamageZone : MonoBehaviour
 {
-    public class DamageZone : MonoBehaviour
+    public HealthController healthController;
+
+    public void HandleDamageZoneHit(float damage)
     {
-
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+        //Debug.Log("[DamageZone] Handling Hit");
+        healthController.TakeDamage(damage);
     }
 }

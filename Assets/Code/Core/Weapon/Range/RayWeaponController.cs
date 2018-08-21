@@ -22,6 +22,7 @@ namespace Core
             timer += Time.deltaTime;
             if (Input.GetKey(fireKey) && timer >= FireRate)
             {
+                timer = 0;
                 rayLine.Fire();
             }
         }

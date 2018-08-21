@@ -1,76 +1,57 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace Core
+using UnityEngine.Events;
+
+public class HealthController : MonoBehaviour
 {
-    public class HealthController : MonoBehaviour
+    public ActorStats ActorStats;
+
+    [SerializeField]
+    private float currentHealth;
+    /// <summary>
+    /// The current health of this instance
+    /// </summary>
+    public float CurrentHealth
     {
-        [SerializeField]
-        private float maxHealth;
-        /// <summary>
-        /// The max health of this instance
-        /// </summary>
-        public float MaxHealth
-        {
-            get { return maxHealth; }
-            set{ maxHealth = value; }
-        }
+        get { return currentHealth; }
+        private set { currentHealth = value; }
+    }
 
-        [SerializeField]
-        private float startingHealth;
-        /// <summary>
-        /// The starting health of this instance
-        /// </summary>
-        public float StartingHealth
+    private bool isDead;
+    /// <summary>
+    /// Is the intance dead
+    /// </summary>
+    public bool IsDead
+    {
+        get
         {
-            get { return startingHealth; }
-            set { startingHealth = value; }
+            if (CurrentHealth <= 0)
+                return true;
+            else
+                return false;
         }
-
-        [SerializeField]
-        private float currentHealth;
-        /// <summary>
-        /// The current health of this instance
-        /// </summary>
-        public float CurrentHealth
-        {
-            get { return currentHealth; }
-            private set { currentHealth = value; }
+        private set { isDead = value; }
+    }
+    public UnityEvent onDeath;
+    // Use this for initialization
+    private void Start()
+    {
+        currentHealth = ActorStats.Endurance * 10;
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K)){
+            TakeDamage(10);
         }
-        [SerializeField]
-        private bool isDead;
-        /// <summary>
-        /// Is the intance dead
-        /// </summary>
-        public bool IsDead
+    }
+    public void TakeDamage(float damageValue)
+    {
+        currentHealth -= damageValue;
+        if (IsDead)
         {
-            get { return CurrentHealth <= 0; }
-            private set { isDead = value; }
-        }
-
-        public KeyCode killKey;
-
-        // Use this for initialization
-        private void Start()
-        {
-
-        }
-        private void OnEnable()
-        {
-            currentHealth = startingHealth;
-        }
-        // Update is called once per frame
-        private void Update()
-        {
-            if (Input.GetKey(killKey))
-            {
-                currentHealth = 0;
-                isDead = true;
-            }
-        }
-        public void TakeDamage(float damageValue)
-        {
-            currentHealth -= damageValue;
+            onDeath.Invoke();
         }
     }
 }
+

@@ -77,6 +77,7 @@ MonoBehaviour:
   GMData: {fileID: 11400000, guid: 8735bed60442f1b4e88bbaa998d010fc, type: 2}
   titleScene: TitleScreen
   startingScene: Prototype
+  currentScene: 
   sceneController: {fileID: 114378770558060460}
   OnGameStateChanged:
     m_PersistentCalls:
@@ -115,9 +116,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14cfc5c9ae52e554592fba7bbff09727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Scenes:
+  - id: 0
+    name: TitleScreen
+    description: Game Entry Menu
+    sceneName: TitleScreen
+  - id: 1
+    name: Prototype
+    description: My Development Scene
+    sceneName: Prototype
   screenFadeCanvas: {fileID: 225577113403456190}
   fadeDuration: 1
-  startingSceneName: Boot
+  currentScene: 
   OnSceneChangeStart:
     m_PersistentCalls:
       m_Calls: []

@@ -7,4 +7,6 @@ public class Events
     [System.Serializable] public class EventSceneChangeComplete : UnityEvent<bool> { }
     [System.Serializable] public class EventStartDialogue : UnityEvent<bool> { }
     [System.Serializable] public class EventFinishDialogue : UnityEvent<bool> { }
+    [System.Serializable] public class EventHitDamageZone : UnityEvent<float> { }
+    [System.Serializable] public class EventPlayerDeath : UnityEvent<bool> { }
 }

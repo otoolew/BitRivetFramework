@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4381728711521584}
   - component: {fileID: 114473484785993768}
   - component: {fileID: 135287927108870256}
+  - component: {fileID: 114580951074945192}
   m_Layer: 0
   m_Name: AutoGuardTurret_Mk2
   m_TagString: Untagged
@@ -87,9 +88,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4459981777147622}
-  - component: {fileID: 114053094797518964}
-  - component: {fileID: 114412837914961298}
-  - component: {fileID: 114983720086520860}
   m_Layer: 0
   m_Name: Vision
   m_TagString: Untagged
@@ -262,36 +260,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114053094797518964
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1893779592998208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efc639685e52d94458ccfa7632e6d5a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  drawDistance: 5
---- !u!114 &114412837914961298
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1893779592998208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acd4feaaa05f532459d7726ee513f8b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sphereCastDistance: 5
-  sphereCastRadius: 2
-  tagCheck: Player
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 2048
-  onSightListener: {fileID: 114983720086520860}
 --- !u!114 &114473484785993768
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -304,34 +272,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alertMode: 0
---- !u!114 &114983720086520860
+--- !u!114 &114580951074945192
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1893779592998208}
+  m_GameObject: {fileID: 1011371901723808}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ebab8d8cf15d4d4fb1fc1e1ee5d8433, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b67eb0c78ea97b49aa37af792c02f84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: 843c986781b7aba4294a7cf9f6db155e, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114473484785993768}
-        m_MethodName: EnterAlertMode
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  SearchTimer: 0
+  TargetsInRange: []
+  currentTargetable: {fileID: 0}
+  HadTarget: 0
 --- !u!135 &135287927108870256
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -339,10 +294,10 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1011371901723808}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 4.35
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135541405560421256
 SphereCollider:

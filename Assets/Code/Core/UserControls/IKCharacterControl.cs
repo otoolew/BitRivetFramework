@@ -27,7 +27,18 @@ namespace Core
         Vector3 cameraForward;
 
         float capsuleHeight;
+        public float CapsuleHeight
+        {
+            get { return capsuleHeight; }
+            private set { capsuleHeight = value; }
+        }
         Vector3 capsuleCenter;
+        public Vector3 CapsuleCenter
+        {
+            get { return capsuleCenter; } 
+            private set { capsuleCenter = value; }
+        }
+
         // World Orientation
         float forwardAmount;
         float turnAmount;

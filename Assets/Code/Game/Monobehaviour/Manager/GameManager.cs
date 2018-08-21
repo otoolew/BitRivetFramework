@@ -4,17 +4,18 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-
 public class GameManager : Singleton<GameManager>{
     public GMData GMData;
     public string titleScene;
     public string startingScene;
+    public string currentScene;
     public enum GameState
     {
         STARTMENU,
         RUNNING,
         PAUSED,
-        SCENECHANGE
+        SCENECHANGE,
+        GAMEOVER
     }
     public SceneController sceneController;
 
@@ -69,6 +70,11 @@ public class GameManager : Singleton<GameManager>{
             case GameState.PAUSED:
                 // Pause player, enemies etc, Lock other input in other systems
                 Debug.Log("Game Paused");
+                Time.timeScale = 0f;
+                break;
+            case GameState.GAMEOVER:
+                // Pause player, enemies etc, Lock other input in other systems
+                Debug.Log("Game OVER");
                 Time.timeScale = 1.0f;
                 break;
 
@@ -85,11 +91,15 @@ public class GameManager : Singleton<GameManager>{
     }
     public void StartGame()
     {
-        sceneController.FadeAndLoadScene(startingScene);
+        sceneController.FadeAndLoadScene(sceneController.Scenes[1].sceneName);
+    }
+    public void RestartLevel()
+    {
+        sceneController.FadeAndLoadScene(sceneController.CurrentScene);
     }
     public void QuitToTitle()
     {
-        sceneController.FadeAndLoadScene(titleScene);
+        sceneController.FadeAndLoadScene(sceneController.Scenes[0].sceneName);
     }
     public void QuitGame()
     {

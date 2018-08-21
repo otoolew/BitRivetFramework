@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,6 +17,7 @@ namespace Core
         float timer;
         public float effectDuration = 0.1f;
         public UnityEvent OnRayHit;
+        public float damage;
         private void Start()
         {
             lineRenderer = GetComponentInChildren<LineRenderer>();
@@ -30,8 +32,17 @@ namespace Core
             ray.direction = transform.forward;
 
             if (Physics.Raycast(ray, out rayHit, RayRange, LayerRayMask))
-            {
-                Debug.Log("Debug RayHit: " + rayHit.collider.name);
+            {            
+                try
+                {
+                    Debug.Log("Debug RayHit: " + rayHit.collider.name);
+                    rayHit.collider.GetComponent<DamageZone>().HandleDamageZoneHit(damage);
+                }
+                catch (System.Exception e)
+                {
+                    Debug.Log(e);
+                }
+                
                 OnRayHit.Invoke();
 
                 lineRenderer.SetPosition(1, rayHit.point);

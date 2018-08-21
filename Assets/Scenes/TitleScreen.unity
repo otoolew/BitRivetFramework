@@ -402,6 +402,11 @@ Prefab:
       propertyPath: m_Name
       value: TitleMenuCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 224980571069498762, guid: 35ac80520f4115e4baa8baedf46f4463,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.00012207031
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35ac80520f4115e4baa8baedf46f4463, type: 2}
   m_IsPrefabAsset: 0

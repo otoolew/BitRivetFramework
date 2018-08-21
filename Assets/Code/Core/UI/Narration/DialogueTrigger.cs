@@ -8,19 +8,19 @@ public class DialogueTrigger : MonoBehaviour
     DialogueController _dialogueController;
 
     [SerializeField]
-    public PlayerInfo PlayerInfo { get; private set; }
+    public PlayerController PlayerController { get; private set; }
 
     [SerializeField]
     private readonly float distanceToPlayer;
     public float DistanceToPlayer
-    { get { return Vector3.Distance(transform.position, PlayerInfo.PlayerPosition);}}
+    { get { return Vector3.Distance(transform.position, PlayerController.PlayerPosition);}}
     public float speakingRange;
     public Dialogue dialogue;
 
 
     private void Start()
     {
-        PlayerInfo = FindObjectOfType<PlayerInfo>();
+        PlayerController = FindObjectOfType<PlayerController>();
         _dialogueController = FindObjectOfType<DialogueController>();
     }
     public void TriggerDialogue()
