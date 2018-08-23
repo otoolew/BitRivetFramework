@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using RootMotion.FinalIK;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -26,6 +27,7 @@ public class NPCController : ActorController
         get { return playerController; }
         private set { playerController = value; }
     }
+    AimIK aimIK;
     #endregion
     #region Properties and Variables
     public float CorpseLingerTime;
@@ -48,11 +50,14 @@ public class NPCController : ActorController
 
     [SerializeField]
     private DamageZone[] HitColliders;
+
+    public Transform aimPoint;
     #endregion
     // Use this for initialization
     void Start()
     {
         animator = GetComponent<Animator>();
+        aimIK = GetComponent<AimIK>();
         npcMovement = GetComponent<NPCMovement>();
         HitColliders = GetComponentsInChildren<DamageZone>();
         PlayerController = FindObjectOfType<PlayerController>();
@@ -142,7 +147,34 @@ public class NPCController : ActorController
     }
     public void Attack()
     {
-        NPCMovement.GoToPosition(PlayerController.PlayerPosition);
+        aimIK.enabled = true;
+        aimPoint.transform.position = PlayerController.PlayerPosition + new Vector3(0,2,0);
+
+        //Debug.Log("Player is "+DistanceToPlayer+ " far away.");
+        if (DistanceToPlayer > 5f)
+        {
+            NPCMovement.GoToPosition(PlayerController.PlayerPosition);
+        }
+        else
+        {
+            NPCMovement.Stop();
+            Vector3 enemyToplayer = aimPoint.position - transform.position;
+            enemyToplayer.y = 0;
+
+            if (enemyToplayer != Vector3.zero)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(enemyToplayer.normalized), 0.15f);
+            }
+            else
+            {
+                // Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
+                Quaternion newRotation = Quaternion.LookRotation(enemyToplayer);
+
+                // Set the player's rotation to this new rotation.
+                transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, 0.15f);
+            }
+        }
+            
     }
     public void AddTask(NPCTask task)
     {

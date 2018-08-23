@@ -203,6 +203,11 @@ Prefab:
       propertyPath: onDeath.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114410642376991202, guid: 5a6b615515642a7468831fd313a5cdb0,
+        type: 2}
+      propertyPath: aimPoint
+      value: 
+      objectReference: {fileID: 2137282454}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a6b615515642a7468831fd313a5cdb0, type: 2}
   m_IsPrefabAsset: 0
@@ -7470,6 +7475,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 136313704349009514, guid: a70823911dcfa074193be2a9570682aa,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a70823911dcfa074193be2a9570682aa, type: 2}
   m_IsPrefabAsset: 0
@@ -7534,3 +7544,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4778709352319790, guid: 68c31ac98247e76408fcc544b21779ae,
     type: 2}
   m_PrefabInternal: {fileID: 269375660}
+--- !u!4 &2137282454 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4107817472197692, guid: 5a6b615515642a7468831fd313a5cdb0,
+    type: 2}
+  m_PrefabInternal: {fileID: 126808981}
