@@ -166,6 +166,7 @@ GameObject:
   - component: {fileID: 114924840441647476}
   - component: {fileID: 195217370034552154}
   - component: {fileID: 114410642376991202}
+  - component: {fileID: 114413646209000958}
   - component: {fileID: 114604839944465022}
   - component: {fileID: 114053462471071726}
   m_Layer: 0
@@ -2184,7 +2185,7 @@ Animator:
   m_GameObject: {fileID: 1111688322378064}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 60e3152f06c30ab4b97fa503f8639b68, type: 3}
-  m_Controller: {fileID: 9100000, guid: 45468bb434774614cab3a2166c198b8f, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9610cab2d1d2e3340926a2fd9634495b, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -2279,7 +2280,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActorStats: {fileID: 11400000, guid: 23c82bb00fd1a64469f9aa325163a475, type: 2}
-  IsHostile: 0
+  CorpseLingerTime: 4
+  taskList:
+  - {fileID: 11400000, guid: d2dfc288c9e46704ea38d92121b957a1, type: 2}
+  - {fileID: 11400000, guid: 494ccab1bff083948830cfc29d8bce0c, type: 2}
+  - {fileID: 11400000, guid: 7d093b8eb93fe744bbabcb31973d477f, type: 2}
+  currentRunningTask: {fileID: 0}
+  taskCount: 0
+  HitColliders: []
+--- !u!114 &114413646209000958
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1111688322378064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa6dc40f92969994985b9989e426c220, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  crouchSpeed: 2
+  walkSpeed: 3
+  runSpeed: 6
+  rotationSpeed: 0.15
+  MoveVelocity: 0
 --- !u!114 &114459130519341796
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2317,13 +2345,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActorStats: {fileID: 11400000, guid: 23c82bb00fd1a64469f9aa325163a475, type: 2}
   currentHealth: 0
-  isDead: 0
-  killKey: 107
-  OnDamageZoneHit:
+  onDeath:
     m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Events+EventHitDamageZone, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+      m_Calls:
+      - m_Target: {fileID: 114410642376991202}
+        m_MethodName: HandleDeath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 114413646209000958}
+        m_MethodName: Stop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114616438517579306
 MonoBehaviour:
   m_ObjectHideFlags: 1

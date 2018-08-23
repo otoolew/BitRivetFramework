@@ -10,6 +10,8 @@ public class NPCMovement : MonoBehaviour
     #region Components
     NavMeshAgent navAgent;
     Animator animator;
+    public Transform[] patrolPoints;
+    private int currentPatrolPoint = 0;
     #endregion
 
     #region Fields / Properties      
@@ -19,59 +21,74 @@ public class NPCMovement : MonoBehaviour
     public float runSpeed = 6.0f;
     public float rotationSpeed = 0.15f;
 
-    /// <summary>
-    /// Returns our targetable's transform position
-    /// </summary>
-    public Vector3 Position
-    {
-        get { return transform.position; }
-    }
-
-    [SerializeField]
-    private Vector3 destination;
-    /// <summary>
-    /// Returns NPC Destination
-    /// </summary>
-    public Vector3 Destination
-    {
-        get { return destination; }
-        set { destination = value; }
-    }
-    public Transform TargetPoint;
     #endregion
     public float MoveVelocity;
+
     // Use this for initialization
     void Start()
     {
         animator = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
-        destination = TargetPoint.position;
+        navAgent.speed = walkSpeed;
+        navAgent.autoBraking = false;
+        navAgent.destination = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        MovementAnimation();
-        destination = TargetPoint.position;
-        //animator.SetFloat("MovementVelocity", navAgent.velocity.magnitude);
-    }
-    private void MovementAnimation()
-    {
         MoveVelocity = navAgent.velocity.magnitude;
-        animator.SetFloat("MoveVelocity", MoveVelocity);
-        //if (navAgent.velocity.magnitude > 0)
-        //{
-        //    animator.SetFloat("Forward", forwardAmount, 0.1f, Time.deltaTime);
-        //}
+        MovementAnimation(MoveVelocity);
+    }
 
-        //Vector3 localMovement = transform.InverseTransformDirection(moveAnim);
-        //turnAmount = localMovement.x;
-        //forwardAmount = localMovement.z;
+    private void MovementAnimation(float velocity)
+    {
+        //MoveVelocity = navAgent.velocity.magnitude;
+        animator.SetFloat("MoveVelocity", velocity);
+    }
+    public void ContinuePatrol()
+    {
+        if (!navAgent.isActiveAndEnabled)
+            return;
+        navAgent.isStopped = false;
+        if (!navAgent.pathPending && navAgent.remainingDistance < 0.1f)
+            GotoNextWayPoint();
+    }
+    public void Stop()
+    {
+        if (!navAgent.isActiveAndEnabled)
+            return;
+        navAgent.SetDestination(transform.position);
+        MoveVelocity = navAgent.velocity.magnitude;
+    }
+    public void GotoNextWayPoint()
+    {
+        // Returns if no points have been set up
+        if (patrolPoints.Length == 0)
+            return;
 
-        //animator.SetFloat("Forward", forwardAmount, 0.1f, Time.deltaTime);
-        //animator.SetFloat("Turn", turnAmount, 0.1f, Time.deltaTime);
-        //animator.SetBool("Aiming", PlayerInput.AimInput);
-        //animator.SetBool("Crouching", PlayerInput.CrouchInput);
+        // Set the agent to go to the currently selected destination.
+        navAgent.destination = patrolPoints[currentPatrolPoint].position;
+        // Choose the next point in the array as the destination,
+        // cycling to the start if necessary.
+        currentPatrolPoint = (currentPatrolPoint + 1) % patrolPoints.Length;
+    }
+    public void GoToPosition(Vector3 position)
+    {
+        if (!navAgent.isActiveAndEnabled)
+            return;
+
+        navAgent.isStopped = false;
+        navAgent.destination = position;
+    }
+    public void ClearNavAgentPath()
+    {
+        navAgent.ResetPath();
+    }
+    public void ActivateNavAgent()
+    {
+        navAgent = GetComponent<NavMeshAgent>();
+        navAgent.enabled = true;
     }
 }
 

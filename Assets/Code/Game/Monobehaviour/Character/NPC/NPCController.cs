@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(NavMeshAgent))]
 public class NPCController : ActorController
 {
     #region Components
@@ -27,7 +26,6 @@ public class NPCController : ActorController
         get { return playerController; }
         private set { playerController = value; }
     }
-    public PatrolCircuit patrolCircuit;
     #endregion
     #region Properties and Variables
     public float CorpseLingerTime;
@@ -44,51 +42,132 @@ public class NPCController : ActorController
     }
     private Stack<NPCTask> _taskStack;
     public List<NPCTask> taskList;
+
+    [SerializeField]
+    private NPCTask currentRunningTask;
+
+    [SerializeField]
+    private DamageZone[] HitColliders;
     #endregion
     // Use this for initialization
     void Start()
     {
         animator = GetComponent<Animator>();
         npcMovement = GetComponent<NPCMovement>();
+        HitColliders = GetComponentsInChildren<DamageZone>();
         PlayerController = FindObjectOfType<PlayerController>();
+        InitTaskStack();
+        ActivateHitColliders();
+    }
+    private void InitTaskStack()
+    {
         _taskStack = new Stack<NPCTask>();
-        Idle();
+        _taskStack.Push(taskList[0]);
+        currentRunningTask = _taskStack.Peek();
+    }
+    private void ActivateHitColliders()
+    {
+        foreach (var collider in HitColliders)
+        {
+            collider.GetComponent<Collider>().enabled = true;
+        }
+    }
+
+    private void OnEnable()
+    {
+        animator = GetComponent<Animator>();
+        npcMovement = GetComponent<NPCMovement>();
+        NPCMovement.ActivateNavAgent();
+
+        HitColliders = GetComponentsInChildren<DamageZone>();
+        PlayerController = FindObjectOfType<PlayerController>();
+
+        InitTaskStack();
+        ActivateHitColliders();
+
+    }
+    private void OnDisable()
+    {
+        _taskStack.Clear();
     }
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Z))
+          
+        if (Input.GetKeyUp(KeyCode.Z))
         {
-            Patrol();
+            AddTask(taskList[0]);
+            currentRunningTask = _taskStack.Peek();
         }
+        if (Input.GetKeyUp(KeyCode.X))
+        {
+            AddTask(taskList[1]);
+            currentRunningTask = _taskStack.Peek();
+        }
+        if (Input.GetKeyUp(KeyCode.C))
+        {
+            AddTask(taskList[2]);
+            currentRunningTask = _taskStack.Peek();
+        }
+        if (Input.GetKeyUp(KeyCode.V))
+        {
+            CompleteCurrentTask();
+        }
+        RunTask();
+
+    }
+    public void RunTask()
+    {
+        if (_taskStack.Count < 1)
+        {
+            _taskStack.Push(taskList[0]);
+        }
+        try
+        {
+            currentRunningTask = _taskStack.Peek();
+        }
+        catch (System.NullReferenceException)
+        {
+            _taskStack.Push(taskList[0]);
+            currentRunningTask = _taskStack.Peek();
+        }
+        currentRunningTask.PerformTask(this);
     }
     public void Idle()
     {
-        _taskStack.Push(taskList[0]);
-        Debug.Log(gameObject.name + " task is [Idle].");
+        NPCMovement.Stop();
     }
     public void Patrol()
     {
-        _taskStack.Push(taskList[1]);
-        Debug.Log(gameObject.name + " task is [Patrol]");
-        NPCMovement.TargetPoint = patrolCircuit.wayPoints[0];
+        NPCMovement.ContinuePatrol();
     }
     public void Attack()
     {
-        Debug.Log(gameObject.name + " task is [Attack]");
-        _taskStack.Push(taskList[2]);
+        NPCMovement.GoToPosition(PlayerController.PlayerPosition);
     }
-
+    public void AddTask(NPCTask task)
+    {
+        if(!_taskStack.Contains(task))
+            _taskStack.Push(task);
+    }
+    public void CompleteCurrentTask()
+    {
+        if (_taskStack.Count < 1)
+            return;
+        _taskStack.Pop(); 
+    }
     public override void HandleDeath()
     {
         animator.SetBool("IsDead", true);
+        NPCMovement.Stop();
         StartCoroutine("DecaySequence");
         Debug.Log(gameObject.name + " is dead.");
     }
     IEnumerator DecaySequence()
     {
         InvokeRepeating("DeathDecay", CorpseLingerTime, 0.01f);
-        yield return new WaitForSeconds(CorpseLingerTime + 4);
+        yield return new WaitForSeconds(CorpseLingerTime + 3);
         CancelInvoke();
+        gameObject.SetActive(false);
     }
     public void DeathDecay()
     {
