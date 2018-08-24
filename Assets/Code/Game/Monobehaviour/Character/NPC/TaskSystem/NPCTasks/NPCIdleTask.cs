@@ -5,6 +5,6 @@ using UnityEngine;
 public class NPCIdleTask : NPCTask {
     public override void PerformTask(NPCController performer)
     {
-        performer.Idle();
+        //performer.Idle();
     }
 }

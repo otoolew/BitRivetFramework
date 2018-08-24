@@ -7,6 +7,6 @@ public class NPCAttackTask : NPCTask
 {
     public override void PerformTask(NPCController performer)
     {
-        performer.Attack();
+        //performer.Attack();
     }
 }

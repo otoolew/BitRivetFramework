@@ -5,7 +5,7 @@ using UnityEngine;
 public class NPCPatrolTask : NPCTask {
     public override void PerformTask(NPCController performer)
     {
-        performer.Patrol();
+        //performer.Patrol();
     }
 
 }

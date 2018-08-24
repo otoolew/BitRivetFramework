@@ -9,6 +9,8 @@ public class PlayerController : ActorController
 {
     #region Components
     private Animator animator;
+    
+
     #endregion
 
     #region Fields / Properties
@@ -16,8 +18,19 @@ public class PlayerController : ActorController
     readonly Vector3 playerPosition;
     public Vector3 PlayerPosition
     { get { return transform.position; } }
-    #endregion
 
+    [SerializeField]
+    private DamageZone[] damageColliders;
+    public DamageZone[] DamageColliders
+    {
+        get { return damageColliders; }
+    }
+
+    #endregion
+    private void Start()
+    {
+        damageColliders = GetComponentsInChildren<DamageZone>();
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.K))

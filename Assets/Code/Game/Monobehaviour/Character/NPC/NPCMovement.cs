@@ -8,10 +8,18 @@ using UnityEngine.AI;
 public class NPCMovement : MonoBehaviour
 {
     #region Components
-    NavMeshAgent navAgent;
     Animator animator;
-    public Transform[] patrolPoints;
+
+    private NavMeshAgent navAgent;
+    public NavMeshAgent NavAgent
+    {
+        get { return navAgent; }
+        private set { navAgent = value; }
+    }
+
+    public List<Transform> patrolPoints;
     private int currentPatrolPoint = 0;
+    public int nextWayPoint;
     #endregion
 
     #region Fields / Properties      
@@ -23,7 +31,7 @@ public class NPCMovement : MonoBehaviour
 
     #endregion
     public float MoveVelocity;
-
+    public Vector3 destination;
     // Use this for initialization
     void Start()
     {
@@ -64,14 +72,14 @@ public class NPCMovement : MonoBehaviour
     public void GotoNextWayPoint()
     {
         // Returns if no points have been set up
-        if (patrolPoints.Length == 0)
+        if (patrolPoints.Count == 0)
             return;
 
         // Set the agent to go to the currently selected destination.
         navAgent.destination = patrolPoints[currentPatrolPoint].position;
         // Choose the next point in the array as the destination,
         // cycling to the start if necessary.
-        currentPatrolPoint = (currentPatrolPoint + 1) % patrolPoints.Length;
+        currentPatrolPoint = (currentPatrolPoint + 1) % patrolPoints.Count;
     }
     public void GoToPosition(Vector3 position)
     {
