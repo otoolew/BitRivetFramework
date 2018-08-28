@@ -62,6 +62,7 @@ public class NPCMovement : MonoBehaviour
         if (!navAgent.pathPending && navAgent.remainingDistance < 0.1f)
             GotoNextWayPoint();
     }
+
     public void Stop()
     {
         if (!navAgent.isActiveAndEnabled)

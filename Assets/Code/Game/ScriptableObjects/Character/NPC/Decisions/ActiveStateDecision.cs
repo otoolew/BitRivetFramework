@@ -8,8 +8,7 @@ namespace NPC
     {
         public override bool Decide(NPCController controller)
         {
-            bool chaseTargetIsActive = controller.PlayerController.gameObject.activeSelf;
-            return chaseTargetIsActive;
+            return controller.NPCVision.HasTarget;
         }
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class DamageZone : MonoBehaviour
 {
     public HealthController healthController;
+    public int Priority;
     public void Start()
     {
         healthController.onDeath.AddListener(HandleDeath);

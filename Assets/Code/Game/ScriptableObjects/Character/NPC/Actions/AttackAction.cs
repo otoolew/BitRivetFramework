@@ -13,17 +13,12 @@ namespace NPC
 
         private void Attack(NPCController controller)
         {
-            RaycastHit hit;
-
-            Debug.DrawRay(controller.eyes.position, controller.eyes.position * controller.NPCAttack.AttackRadius, Color.red);
-
-            if (Physics.SphereCast(controller.eyes.position, controller.lookSphereCastRadius, controller.eyes.forward, out hit, controller.NPCAttack.AttackRadius)
-                && hit.collider.CompareTag("Player"))
+           
+            if (controller.NPCAttack.InAttackRange)
             {
-                if (controller.CheckIfCountDownElapsed(controller.attackRate))
-                {
-                    controller.NPCAttack.Fire();
-                }
+                controller.NPCMovement.Stop();
+                controller.NPCAttack.LegRotation();
+                controller.NPCAttack.Fire();
             }
         }
     }

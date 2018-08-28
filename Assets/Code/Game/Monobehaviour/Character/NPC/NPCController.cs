@@ -46,26 +46,20 @@ public class NPCController : ActorController
     #region Properties and Variables
     public float CorpseLingerTime;
     public float AlertTime;
-
+    public float SearchTime;
     [SerializeField]
     private readonly float distanceToPlayer;
     public float DistanceToPlayer
     {
         get { return Vector3.Distance(transform.position, PlayerController.PlayerPosition); }
     }
-    public Transform eyes;
-    public float lookSphereCastRadius;
-    public float attackRate;
-    public float attackRange;
-    public float lookRange;
-    public float searchDuration;
-    private bool aiActive;
+
     private DamageZone[] HitColliders;
 
     public float stateTimeElapsed;
     public State currentState;
     public State remainState;
-
+    public bool Dead;
     #endregion
     // Use this for initialization
     void Start()
@@ -91,11 +85,15 @@ public class NPCController : ActorController
     {
         animator = GetComponent<Animator>();
         npcMovement = GetComponent<NPCMovement>();
-        NPCMovement.ActivateNavAgent();
         npcAttack = GetComponent<NPCAttack>();
+        npcVision = GetComponent<NPCVision>();
+
+        NPCMovement.ActivateNavAgent();
+        npcVision.enabled = true;
         HitColliders = GetComponentsInChildren<DamageZone>();
         PlayerController = FindObjectOfType<PlayerController>();
         ActivateHitColliders();
+        Dead = false;
 
     }
     private void OnDisable()
@@ -104,7 +102,8 @@ public class NPCController : ActorController
     }
     private void Update()
     {
-        currentState.UpdateState(this);
+        if(!Dead)
+            currentState.UpdateState(this);
     }
     public void TransitionToState(State nextState)
     {
@@ -126,11 +125,11 @@ public class NPCController : ActorController
         stateTimeElapsed = 0;
     }
 
-
     public override void HandleDeath()
     {
         animator.SetBool("IsDead", true);
-        NPCMovement.Stop();
+        Dead = true;
+        //npcMovement.NavAgent.enabled = false;
         StartCoroutine("DecaySequence");
         Debug.Log(gameObject.name + " is dead.");
     }
@@ -144,15 +143,6 @@ public class NPCController : ActorController
     public void DeathDecay()
     {
         transform.Translate(-Vector3.up * .5f * Time.deltaTime);
-    }
-
-    void OnDrawGizmos()
-    {
-        if (currentState != null && eyes != null)
-        {
-            Gizmos.color = currentState.sceneGizmoColor;
-            Gizmos.DrawWireSphere(eyes.position, lookSphereCastRadius);
-        }
     }
 }
 

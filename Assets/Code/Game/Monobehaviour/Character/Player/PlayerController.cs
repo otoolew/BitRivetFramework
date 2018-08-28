@@ -9,7 +9,7 @@ public class PlayerController : ActorController
 {
     #region Components
     private Animator animator;
-    
+    public PlayerInput playerInput;
 
     #endregion
 

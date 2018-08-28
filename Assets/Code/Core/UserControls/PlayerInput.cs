@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PlayerInput : Singleton<PlayerInput> 
+public class PlayerInput : MonoBehaviour
 {
     //[HideInInspector]
     public bool playerControllerInputBlocked;

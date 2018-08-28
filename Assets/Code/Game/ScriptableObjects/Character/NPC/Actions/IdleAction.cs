@@ -13,7 +13,7 @@ namespace NPC
 
         private void Idle(NPCController controller)
         {
-            Debug.Log("Idling");
+            controller.NPCMovement.NavAgent.isStopped = true;
         }
     }
 }

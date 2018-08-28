@@ -941,7 +941,7 @@ GameObject:
   - component: {fileID: 143350383467152624}
   - component: {fileID: 135011984186280280}
   - component: {fileID: 114886233184963388}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ShopKeeperNPC
   m_TagString: Untagged
   m_Icon: {fileID: 0}

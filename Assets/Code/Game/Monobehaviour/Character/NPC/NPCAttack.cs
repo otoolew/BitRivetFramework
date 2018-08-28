@@ -8,72 +8,33 @@ public class NPCAttack : MonoBehaviour
 {
     float timer;
     public PlayerController playerController;
-    public Transform eyes;
 
     Ray ray;
     RaycastHit rayHit;
-    AimIK aimIK;
+
 
     [SerializeField]
-    private float viewRadius;
-    public float ViewRadius
+    private bool inAttackRange;
+    public bool InAttackRange
     {
-        get { return viewRadius; }
-        set { viewRadius = value; }
+        get { return inAttackRange; }
+        set { inAttackRange = value; }
     }
     [SerializeField]
-    private float attackRadius;
-    public float AttackRadius
-    {
-        get { return attackRadius; }
-        set { attackRadius = value; }
-    }
-    [SerializeField]
-    [Range(0, 360)]
-    private float viewAngle;
-    public float ViewAngle
-    {
-        get { return viewAngle; }
-        set { viewAngle = value; }
-    }
-
-    [SerializeField]
-    private bool detectionRange;
-    public bool DetectionRange
-    {
-        get { return detectionRange; }
-        set { detectionRange = value; }
-    }
-    [SerializeField]
-    private bool attackRange;
-    public bool AttackRange
+    private float attackRange;
+    public float AttackRange
     {
         get { return attackRange; }
         set { attackRange = value; }
     }
-    [SerializeField]
-    private bool hasTarget;
-    public bool HasTarget
-    {
-        get { return hasTarget; }
-        set { hasTarget = value; }
-    }
-    public LayerMask targetLayer;
+
 
     [SerializeField]
-    private List<Transform> visibleTargets;
-    public List<Transform> VisibleTargets
+    private List<DamageZone> targetZones;
+    public List<DamageZone> TargetZones
     {
-        get { return visibleTargets; }
-        set { visibleTargets = value; }
-    }
-
-    [SerializeField]
-    private string detectionTag;
-    public string DetectionTag
-    {
-        get { return detectionTag; }
-        set { detectionTag = value; }
+        get { return targetZones; }
+        set { targetZones = value; }
     }
 
     [SerializeField]
@@ -85,19 +46,20 @@ public class NPCAttack : MonoBehaviour
     }
     
     public RayCastLine rayLine;
-    public float FireRate;
-    public Transform aimPoint;
-    public Transform CurrentTarget;
+    public float fireRate;
+    public Transform targetCursor;
+    public DamageZone currentTarget;
+    public LayerMask targetLayer;
     private void Awake()
     {
         playerController = FindObjectOfType<PlayerController>();
-        aimIK = GetComponent<AimIK>();
     }
     // Use this for initialization
     void Start()
     {
         ray.origin = transform.position;
-        visibleTargets = new List<Transform>();
+        targetZones = new List<DamageZone>();
+        RefreshTargets();
     }
 
     // Update is called once per frame
@@ -105,43 +67,49 @@ public class NPCAttack : MonoBehaviour
     {
         timer += Time.deltaTime;
         playerDistance = Vector3.Distance(transform.position, playerController.PlayerPosition);
-        detectionRange = PlayerDistance < viewRadius;
-        attackRange = PlayerDistance < attackRadius;
-        if (DetectionRange)
-        {
-            FindVisableTargets();
-            // Add the time since Update was last called to the timer.
-        }
+        inAttackRange = PlayerDistance < attackRange;        
     }
-    private void FindVisableTargets()
+    public void RefreshTargets()
     {
-        visibleTargets.Clear();
-        DamageZone[] playerTargets = playerController.DamageColliders;
-
-        foreach (var item in playerTargets)
+        targetZones.Clear();
+        foreach (var damageZone in playerController.DamageColliders)
         {
-            Transform target = item.transform;
+            Transform target = damageZone.transform;
             Vector3 directionToTarget = (target.position - transform.position).normalized;
-            if (Vector3.Angle(transform.forward, directionToTarget) < ViewAngle / 2)
+            if (Physics.Raycast(transform.position, directionToTarget, out rayHit, playerDistance, targetLayer))
             {
-                float targetDistance = Vector3.Distance(transform.position, target.position);
-
-                if (Physics.Raycast(transform.position, directionToTarget, out rayHit, targetDistance))
+                DamageZone temp = rayHit.transform.GetComponent<DamageZone>();
+                if (currentTarget == null)
                 {
-                    if (rayHit.collider.transform.tag.Equals(DetectionTag))
-                        visibleTargets.Add(rayHit.collider.transform);
+                    currentTarget = temp;
+                    return;
                 }
-            }
-        }
-        if(visibleTargets.Count > 0)
-        {
-            CurrentTarget = FindObjectOfType<DamageZone>().transform;           
+                if(temp.Priority < currentTarget.Priority)
+                {
+                    currentTarget = temp;
+                }      
+            }           
         }
     }
-    
+    public void LegRotation()
+    {
+        // Create a vector from the npc to the target.
+        Vector3 rotVector = playerController.transform.position - transform.position;
+
+        // Ensure the vector is entirely along the floor plane.
+        rotVector.y = 0f;
+
+        // Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
+        Quaternion newRotation = Quaternion.LookRotation(rotVector);
+
+        // Set the character's rotation to this new rotation.
+        transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, 0.15f);
+       
+    }
     public void Fire()
     {
-        if (timer >= FireRate)
+        RefreshTargets();
+        if (timer >= fireRate)
         {
             timer = 0;
             rayLine.Fire();

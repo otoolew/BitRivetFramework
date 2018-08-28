@@ -30,7 +30,7 @@ public class DialogueTrigger : MonoBehaviour
 
     void OnMouseOver()
     {
-        if ((DistanceToPlayer <= speakingRange) && PlayerInput.Instance.Interact)
+        if ((DistanceToPlayer <= speakingRange))
         {
             TriggerDialogue();
         }

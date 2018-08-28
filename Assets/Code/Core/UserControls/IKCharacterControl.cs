@@ -50,7 +50,7 @@ namespace Core
         public float gravity = 20.0f;
         public Transform aimPoint;
         public LayerMask layerMask;
-
+        public DamageZone[] HitColliders;
 
         // Use this for initialization
         void Start () 
@@ -70,6 +70,7 @@ namespace Core
             cameraTransform = Camera.main.transform;
             capsuleHeight = controller.height;
             capsuleCenter = controller.center;
+            HitColliders = GetComponentsInChildren<DamageZone>();
         }
 
         // Update is called once per frame

@@ -16,10 +16,5 @@ public class NPCVisionEditor : Editor
         Handles.DrawLine(visionDector.transform.position, visionDector.transform.position + viewAngleA * visionDector.ViewRadius);
         Handles.DrawLine(visionDector.transform.position, visionDector.transform.position + viewAngleB * visionDector.ViewRadius);
         Handles.color = Color.red;
-
-        foreach (Transform visibleTarget in visionDector.VisibleTargets)
-        {
-            Handles.DrawLine(visionDector.transform.position, visibleTarget.position);
-        }
     }
 }

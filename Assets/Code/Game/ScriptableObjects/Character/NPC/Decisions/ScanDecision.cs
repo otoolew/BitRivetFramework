@@ -15,8 +15,8 @@ namespace NPC
         private bool Scan(NPCController controller)
         {
             controller.NPCMovement.NavAgent.isStopped = true; 
-            controller.transform.Rotate(0, 0.15f * Time.deltaTime, 0);
-            return controller.CheckIfCountDownElapsed(controller.searchDuration);
+            controller.transform.Rotate(0, 0.90f * Time.deltaTime, 0);
+            return controller.CheckIfCountDownElapsed(controller.SearchTime);
         }
     }
 }

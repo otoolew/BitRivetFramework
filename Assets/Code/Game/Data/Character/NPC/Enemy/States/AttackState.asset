@@ -11,6 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccff035224387224fb8f50368784c273, type: 3}
   m_Name: AttackState
   m_EditorClassIdentifier: 
-  actions: []
-  transitions: []
+  actions:
+  - {fileID: 11400000, guid: 6080423f1968748448eb07517c68efa4, type: 2}
+  - {fileID: 11400000, guid: ae25b2cd631ec024f8d2af1741bdd21a, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: b0206b9dfacc8f44bba1d83fa15ce77d, type: 2}
+    trueState: {fileID: 11400000, guid: 53b69cdb73c5c724792ac6cbe6542e86, type: 2}
+    falseState: {fileID: 11400000, guid: 873048a23a849b34cbc83c88bbfc5d0f, type: 2}
   sceneGizmoColor: {r: 1, g: 0, b: 0.23511362, a: 1}

@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class NPCVision : MonoBehaviour
 {
-    float timer = 0;
+    #region Fields / Properties
+    public float timer;
     Ray ray;
     RaycastHit rayHit;
+    public Transform eyes; 
+
     [SerializeField]
     private float viewRadius;
     public float ViewRadius
@@ -35,14 +39,6 @@ public class NPCVision : MonoBehaviour
     public LayerMask targetLayer;
 
     [SerializeField]
-    private List<Transform> visibleTargets;
-    public List<Transform> VisibleTargets
-    {
-        get { return visibleTargets; }
-        set { visibleTargets = value; }
-    }
-
-    [SerializeField]
     private string detectionTag;
     public string DetectionTag
     {
@@ -56,28 +52,46 @@ public class NPCVision : MonoBehaviour
         get { return currentTarget; }
         set { currentTarget = value; }
     }
+    public bool HasTarget;
+   
+
+    #endregion
+    #region Events
+    public UnityEvent onGainSight;
+    public UnityEvent onLoseSight;
+
+    #endregion
 
     // Use this for initialization
     void Start()
     {
         ray.origin = transform.position;
-        visibleTargets = new List<Transform>();
+        currentTarget = FindObjectOfType<PlayerController>().transform;
     }
 
     // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
-
-        if (timer >= DetectionRate)
+        HasTarget = TargetInSight();
+        if (timer >= detectionRate)
         {
             timer = 0f;
-            FindVisableTargets();
+            HasTarget = TargetInSight();
+           
+        }
+        if (HasTarget)
+        {
+            onGainSight.Invoke();
+        }
+        else
+        {
+            onLoseSight.Invoke();
         }
     }
-    private void FindVisableTargets()
+
+    private bool TargetInSight()
     {
-        visibleTargets.Clear();
         Collider[] targetsInView = Physics.OverlapSphere(transform.position, viewRadius, targetLayer);
         foreach (var item in targetsInView)
         {
@@ -87,15 +101,18 @@ public class NPCVision : MonoBehaviour
             {
                 float targetDistance = Vector3.Distance(transform.position, target.position);
 
-                if (Physics.Raycast(transform.position, directionToTarget, out rayHit, targetDistance))
+                if (Physics.Raycast(transform.position, directionToTarget, out rayHit, targetDistance, targetLayer))
                 {
                     //Debug.Log("Debug RayHit: " + rayHit.collider.name);
                     if (rayHit.collider.transform.tag.Equals(DetectionTag))
-                        visibleTargets.Add(rayHit.collider.transform);
+                    {
+                        return true;
+                    }
                 }
             }
 
         }
+        return false;
     }
     public Vector3 DirectionFromAngle(float angleInDegrees, bool angleIsGlobal)
     {
@@ -105,4 +122,5 @@ public class NPCVision : MonoBehaviour
         }
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0f, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
+
 }
