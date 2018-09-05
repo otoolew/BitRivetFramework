@@ -6,6 +6,8 @@ TagManager:
   tags:
   - AimPoint
   - DetectionPoint
+  - Prop
+  - Npc
   layers:
   - Default
   - TransparentFX

@@ -28,14 +28,7 @@ public class NPCAttack : MonoBehaviour
         set { attackRange = value; }
     }
 
-
-    [SerializeField]
     private List<DamageZone> targetZones;
-    public List<DamageZone> TargetZones
-    {
-        get { return targetZones; }
-        set { targetZones = value; }
-    }
 
     [SerializeField]
     private float playerDistance;
@@ -91,7 +84,7 @@ public class NPCAttack : MonoBehaviour
             }           
         }
     }
-    public void LegRotation()
+    public void AimAtTarget()
     {
         // Create a vector from the npc to the target.
         Vector3 rotVector = playerController.transform.position - transform.position;
@@ -103,7 +96,7 @@ public class NPCAttack : MonoBehaviour
         Quaternion newRotation = Quaternion.LookRotation(rotVector);
 
         // Set the character's rotation to this new rotation.
-        transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, 0.15f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, 1f);
        
     }
     public void Fire()
@@ -115,5 +108,4 @@ public class NPCAttack : MonoBehaviour
             rayLine.Fire();
         }
     }
-
 }

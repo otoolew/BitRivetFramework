@@ -42,11 +42,15 @@ public class NPCController : ActorController
         private set { playerController = value; }
     }
 
+
     #endregion
+
     #region Properties and Variables
+    public string NPCName;
     public float CorpseLingerTime;
     public float AlertTime;
     public float SearchTime;
+
     [SerializeField]
     private readonly float distanceToPlayer;
     public float DistanceToPlayer
@@ -56,10 +60,8 @@ public class NPCController : ActorController
 
     private DamageZone[] HitColliders;
 
-    public float stateTimeElapsed;
-    public State currentState;
-    public State remainState;
     public bool Dead;
+
     #endregion
     // Use this for initialization
     void Start()
@@ -70,7 +72,7 @@ public class NPCController : ActorController
         npcVision = GetComponent<NPCVision>();
         HitColliders = GetComponentsInChildren<DamageZone>();
         PlayerController = FindObjectOfType<PlayerController>();
-        ActivateHitColliders();
+        ActivateHitColliders();           
     }
 
     private void ActivateHitColliders()
@@ -102,29 +104,29 @@ public class NPCController : ActorController
     }
     private void Update()
     {
-        if(!Dead)
-            currentState.UpdateState(this);
-    }
-    public void TransitionToState(State nextState)
-    {
-        if (nextState != remainState)
+        
+        animator.SetBool("HasTarget", npcVision.HasTarget);
+        if (npcVision.HasTarget)
         {
-            currentState = nextState;
-            OnExitState();
+            animator.SetFloat("PlayerDistance", Vector3.Distance(gameObject.transform.position, playerController.PlayerPosition));
+            
         }
+            
     }
-
-    public bool CheckIfCountDownElapsed(float duration)
+    public void LookAtTarget(GameObject target)
     {
-        stateTimeElapsed += Time.deltaTime;
-        return (stateTimeElapsed >= duration);
-    }
+        // Create a vector from the npc to the target.
+        Vector3 rotVector = target.transform.position - transform.position;
 
-    private void OnExitState()
-    {
-        stateTimeElapsed = 0;
-    }
+        // Ensure the vector is entirely along the floor plane.
+        rotVector.y = 0f;
 
+        // Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
+        Quaternion newRotation = Quaternion.LookRotation(rotVector);
+
+        // Set the character's rotation to this new rotation.
+        transform.rotation = newRotation;
+    }
     public override void HandleDeath()
     {
         animator.SetBool("IsDead", true);
@@ -144,6 +146,7 @@ public class NPCController : ActorController
     {
         transform.Translate(-Vector3.up * .5f * Time.deltaTime);
     }
+
 }
 
 

@@ -32,12 +32,23 @@ public class NPCMovement : MonoBehaviour
     #endregion
     public float MoveVelocity;
     public Vector3 destination;
+
+    [SerializeField]
+    private float distanceToDestination;
+    public float DistanceToDestination
+    {
+        get
+        {
+            distanceToDestination = Vector3.Distance(navAgent.destination, gameObject.transform.position);
+            return distanceToDestination;
+        }
+    }
     // Use this for initialization
     void Start()
     {
         animator = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
-        navAgent.speed = walkSpeed;
+        navAgent.speed = runSpeed;
         navAgent.autoBraking = false;
         navAgent.destination = transform.position;
     }
@@ -45,6 +56,12 @@ public class NPCMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if(DistanceToDestination <= navAgent.stoppingDistance)
+        {
+            StopSliding();
+        }
+
         MoveVelocity = navAgent.velocity.magnitude;
         MovementAnimation(MoveVelocity);
     }
@@ -62,7 +79,7 @@ public class NPCMovement : MonoBehaviour
         if (!navAgent.pathPending && navAgent.remainingDistance < 0.1f)
             GotoNextWayPoint();
     }
-
+    
     public void Stop()
     {
         if (!navAgent.isActiveAndEnabled)
@@ -70,6 +87,11 @@ public class NPCMovement : MonoBehaviour
         navAgent.SetDestination(transform.position);
         MoveVelocity = navAgent.velocity.magnitude;
     }
+    public void StopSliding()
+    {
+        navAgent.velocity = Vector3.zero;
+    }
+
     public void GotoNextWayPoint()
     {
         // Returns if no points have been set up

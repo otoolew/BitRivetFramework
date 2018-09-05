@@ -1064,7 +1064,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4397932930647670}
   - component: {fileID: 95529361614117468}
-  - component: {fileID: 114745332463745964}
   - component: {fileID: 195738759735385004}
   - component: {fileID: 114305549037153898}
   - component: {fileID: 114909135183628132}
@@ -1140,7 +1139,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1720268783764768}
-  m_LocalRotation: {x: -0.025540587, y: 0.05090083, z: -0.060749024, w: 0.99652714}
+  m_LocalRotation: {x: -0.025540588, y: 0.050900836, z: -0.060749028, w: 0.9965272}
   m_LocalPosition: {x: -0.125089, y: 1.6370903e-10, z: -0.000000015719706}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1245,7 +1244,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1609308183966906}
-  m_LocalRotation: {x: 0.0039177104, y: 0.9972005, z: -0.057756517, w: -0.04732835}
+  m_LocalRotation: {x: 0.003917711, y: 0.99720055, z: -0.05775652, w: -0.047328353}
   m_LocalPosition: {x: -0.00000023841906, y: -0.00000021475759, z: -0.18964645}
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 1}
   m_Children:
@@ -1430,8 +1429,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1986015889045730}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 11.28, y: 0, z: 7.04}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4711545887874090}
@@ -1472,7 +1471,7 @@ Transform:
   - {fileID: 224645285357167474}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4424360526652448
 Transform:
   m_ObjectHideFlags: 1
@@ -1669,7 +1668,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1898235063496354}
-  m_LocalRotation: {x: 0.0023563767, y: 0.019579712, z: -0.23014155, w: 0.9729573}
+  m_LocalRotation: {x: 0.002356377, y: 0.019579714, z: -0.23014157, w: 0.9729574}
   m_LocalPosition: {x: -0.42799026, y: 0.00000037625423, z: -0.00047744717}
   m_LocalScale: {x: 1, y: 0.99999994, z: 0.99999994}
   m_Children:
@@ -2271,7 +2270,6 @@ MonoBehaviour:
   attackRange: 10
   targetZones: []
   playerDistance: 0
-  aimPoint: {fileID: 4534092892549814}
   rayLine: {fileID: 114446636525693666}
   fireRate: 0.25
   targetCursor: {fileID: 4247014622942970}
@@ -2321,9 +2319,6 @@ MonoBehaviour:
   CorpseLingerTime: 4
   AlertTime: 0
   SearchTime: 0
-  stateTimeElapsed: 0
-  currentState: {fileID: 11400000, guid: 873048a23a849b34cbc83c88bbfc5d0f, type: 2}
-  remainState: {fileID: 11400000, guid: 53b69cdb73c5c724792ac6cbe6542e86, type: 2}
   Dead: 0
 --- !u!114 &114363567016550490
 MonoBehaviour:
@@ -2454,46 +2449,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthController: {fileID: 114909135183628132}
   Priority: 0
---- !u!114 &114745332463745964
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1986015889045730}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5013856973b27429d937d256dc082f2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fixTransforms: 0
-  solver:
-    IKPosition: {x: 0, y: 0.00999999, z: 0.0000000016292439}
-    IKPositionWeight: 1
-    root: {fileID: 4397932930647670}
-    target: {fileID: 4247014622942970}
-    tolerance: 0
-    maxIterations: 4
-    useRotationLimits: 1
-    XY: 0
-    bones:
-    - transform: {fileID: 4997326529111982}
-      weight: 1
-      solverPosition: {x: 0, y: 0, z: 0}
-      solverRotation: {x: 0, y: 0, z: 0, w: 0}
-      defaultLocalPosition: {x: -0.16117437, y: -0.00047135568, z: 0.0000002241702}
-      defaultLocalRotation: {x: -0.0000020895977, y: 0.00000070293004, z: -0.013839603,
-        w: 0.9999043}
-      length: 0
-      sqrMag: 0
-      axis: {x: 0, y: 0, z: 0}
-    transform: {fileID: 4534092892549814}
-    axis: {x: 0, y: 0, z: 1}
-    poleAxis: {x: 0, y: 1, z: 0}
-    polePosition: {x: 1.3883703, y: 1.7693896, z: 3.221257}
-    poleWeight: 0
-    poleTarget: {fileID: 0}
-    clampWeight: 0.885
-    clampSmoothing: 2
 --- !u!114 &114810008637542428
 MonoBehaviour:
   m_ObjectHideFlags: 1
