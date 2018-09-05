@@ -75,14 +75,6 @@ public class NPCController : ActorController
         ActivateHitColliders();           
     }
 
-    private void ActivateHitColliders()
-    {
-        foreach (var collider in HitColliders)
-        {
-            collider.GetComponent<Collider>().enabled = true;
-        }
-    }
-
     private void OnEnable()
     {
         animator = GetComponent<Animator>();
@@ -98,20 +90,22 @@ public class NPCController : ActorController
         Dead = false;
 
     }
-    private void OnDisable()
-    {
-    
-    }
+
     private void Update()
-    {
-        
+    {     
         animator.SetBool("HasTarget", npcVision.HasTarget);
         if (npcVision.HasTarget)
         {
-            animator.SetFloat("PlayerDistance", Vector3.Distance(gameObject.transform.position, playerController.PlayerPosition));
-            
+            animator.SetFloat("PlayerDistance", Vector3.Distance(gameObject.transform.position, playerController.PlayerPosition));          
         }
             
+    }
+    private void ActivateHitColliders()
+    {
+        foreach (var collider in HitColliders)
+        {
+            collider.GetComponent<Collider>().enabled = true;
+        }
     }
     public void LookAtTarget(GameObject target)
     {
@@ -131,7 +125,7 @@ public class NPCController : ActorController
     {
         animator.SetBool("IsDead", true);
         Dead = true;
-        //npcMovement.NavAgent.enabled = false;
+        npcMovement.NavAgent.enabled = false;
         StartCoroutine("DecaySequence");
         Debug.Log(gameObject.name + " is dead.");
     }

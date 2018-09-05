@@ -41,7 +41,7 @@ namespace Core
             {
                 try
                 {
-                    Debug.Log("Debug RayHit: " + rayHit.collider.name);
+                    //Debug.Log("Debug RayHit: " + rayHit.collider.name);
                     rayHit.collider.GetComponent<DamageZone>().HandleDamageZoneHit(damage);
                 }
                 catch (System.Exception e)

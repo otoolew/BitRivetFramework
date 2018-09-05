@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Core.Variables;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -53,7 +54,6 @@ public class NPCVision : MonoBehaviour
         set { currentTarget = value; }
     }
     public bool HasTarget;
-   
 
     #endregion
     #region Events

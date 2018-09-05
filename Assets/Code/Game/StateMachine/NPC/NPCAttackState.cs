@@ -24,8 +24,12 @@ public class NPCAttackState : StateMachineBehaviour
         }
         else
         {
-            controller.NPCMovement.NavAgent.isStopped = false;
-            controller.NPCMovement.NavAgent.SetDestination(controller.PlayerController.transform.position);
+            if (controller.NPCMovement.NavAgent.isActiveAndEnabled)
+            {
+                controller.NPCMovement.NavAgent.isStopped = false;
+                controller.NPCMovement.NavAgent.SetDestination(controller.PlayerController.transform.position);
+            }
+
         }
             
     }
