@@ -4,13 +4,15 @@ using UnityEngine;
 
 namespace Core
 {
-    public class NPCMoveState : NPCStateMachine
+    public class NPCMoveState : StateMachineBehaviour
     {
+        NPCController controller;
         // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            base.OnStateEnter(animator, stateInfo, layerIndex);
-            //NPCMovement.NavAgent.isStopped = false;
+            controller = animator.GetComponent<NPCController>();
+            controller.stateStatus = "Moving";
+            Debug.Log("NPC State: " + controller.stateStatus);
         }
 
         // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

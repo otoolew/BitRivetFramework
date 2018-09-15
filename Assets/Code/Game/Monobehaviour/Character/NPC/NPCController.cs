@@ -41,7 +41,12 @@ public class NPCController : ActorController
         get { return playerController; }
         private set { playerController = value; }
     }
-
+    private HealthController healthControl;
+    public HealthController HealthController
+    {
+        get { return healthControl; }
+        private set { healthControl = value; }
+    }
 
     #endregion
 
@@ -50,7 +55,7 @@ public class NPCController : ActorController
     public float CorpseLingerTime;
     public float AlertTime;
     public float SearchTime;
-
+    public string stateStatus;
     [SerializeField]
     private readonly float distanceToPlayer;
     public float DistanceToPlayer
@@ -94,6 +99,7 @@ public class NPCController : ActorController
     private void Update()
     {     
         animator.SetBool("HasTarget", npcVision.HasTarget);
+        animator.SetBool("IsDead", Dead);
         if (npcVision.HasTarget)
         {
             animator.SetFloat("PlayerDistance", Vector3.Distance(gameObject.transform.position, playerController.PlayerPosition));          

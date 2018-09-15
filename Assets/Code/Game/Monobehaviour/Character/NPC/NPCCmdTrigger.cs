@@ -18,9 +18,9 @@ public class NPCCmdTrigger : MonoBehaviour
         cmdUI = FindObjectOfType<TroopCommand>();
     }
 	
-    public void OnMouseOver()
-    {
-        cmdUI.controller = controller;
-        cmdUI.AssignTroop();
-    }
+    // public void OnMouseOver()
+    // {
+    //     cmdUI.controller = controller;
+    //     cmdUI.AssignTroop();
+    // }
 }

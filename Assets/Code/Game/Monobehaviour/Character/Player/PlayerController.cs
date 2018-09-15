@@ -29,6 +29,7 @@ public class PlayerController : ActorController
     #endregion
     private void Start()
     {
+        playerInput = FindObjectOfType<PlayerInput>();
         damageColliders = GetComponentsInChildren<DamageZone>();
     }
     private void Update()
