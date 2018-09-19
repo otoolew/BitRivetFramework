@@ -35,7 +35,7 @@ public class GameManager : Singleton<GameManager>{
     {
         DontDestroyOnLoad(gameObject);
         GMData.CurrentGameState = _currentGameState;
-        sceneController.OnSceneChangeComplete.AddListener(HandleSceneChangeStart);
+        sceneController.OnSceneChangeStart.AddListener(HandleSceneChangeStart);
         sceneController.OnSceneChangeComplete.AddListener(HandleSceneChangeComplete);
         OnGameStateChanged.Invoke(GMData.CurrentGameState, _currentGameState);
     }
