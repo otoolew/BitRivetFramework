@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEditor;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace UMotionEditor
 {
@@ -59,6 +60,16 @@ namespace UMotionEditor
 
                 return resourceFile;
             }
+        }
+
+        public string GetEditorDataPath()
+        {
+            string resourcesPath = AssetDatabase.GetAssetPath(this);
+
+            string dataPath = Path.GetDirectoryName(resourcesPath);
+            dataPath = Path.Combine(Path.GetDirectoryName(dataPath), "Data");
+            
+            return dataPath;
         }
 
         public T GetResource<T>(string name) where T : UnityEngine.Object

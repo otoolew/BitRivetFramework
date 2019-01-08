@@ -18,7 +18,7 @@
 			</div>
 		</div>
 		<div class="versionHeader">
-			<p class="versionText">Version: <b>1.14</b> </p>
+			<p class="versionText">Version: <b>1.15p04</b> </p>
 		</div>
 		<div class="leftContent">
 			<div class="leftContentInner">
@@ -220,35 +220,41 @@
 				<h1 class="headline1" id="">Selection</h1><p class="textBlock">Tools for selecting joints and transforms.</p><img src="../images/PoseEditorSelection.png" class="image"></img>
 <p class="imageText">Pose Mode - Selection</p><p class="textBlock">Joints and transforms can be either selected by clicking on them in the Scene View or by clicking them in Unity's Hierarchy window.</p><p class="textBlock">The buttons next to Parent, Child and Sibling can be used to select the appropriate joint/transform or all of them (e.g. all parents).</p><table class="themeTable">
     <tr class="themeTableRow">
-    <th class="themeTableHeader">UI Element</th>
+        <th class="themeTableHeader">UI Element</th>
         <th class="themeTableHeader">Description</th>
     </tr>
     <tr class="themeTableRow">
-    <td class="themeTableCell">Selected</td>
+        <td class="themeTableCell" style="white-space: nowrap;">Selected</td>
         <td class="themeTableCell">The name of the current selected joint/transform.</td>
     </tr>
     <tr class="themeTableRow">
-        <td class="themeTableCell">Parent</td>
+        <td class="themeTableCell" style="white-space: nowrap;">↔ Clip Editor</td>
+        <td class="themeTableCell">Enables/disables the synchronization of the selection between the Pose Editor and the Clip Editor.
+        </br>
+        </br>When enabled, selecting animated properties in the Clip Editor will select the corresponding bone/transform in the Pose Editor and Scene View. Respectively when a bone/transform is selected in the Scene View or by using the slection tools of the Pose Editor, the corresponding animated property is selected in the Clip Editor. The animated property is selected based on the current selected tool (the position tool is selecting the position property etc.).</td>
+    </tr>
+    <tr class="themeTableRow">
+        <td class="themeTableCell" style="white-space: nowrap;">Parent</td>
         <td class="themeTableCell">The name of the parent of the selected joint/transform.</td>
     </tr>
     <tr class="themeTableRow">
-        <td class="themeTableCell">Child</td>
+        <td class="themeTableCell" style="white-space: nowrap;">Child</td>
         <td class="themeTableCell">The name of the child of the selected joint/transform.</td>
     </tr>
     <tr class="themeTableRow">
-        <td class="themeTableCell">Sibling</td>
+        <td class="themeTableCell" style="white-space: nowrap;">Sibling</td>
         <td class="themeTableCell">The name of the sibling of the selected joint/transform.</td>
     </tr>
     <tr class="themeTableRow">
-        <td class="themeTableCell">Select All</td>
+        <td class="themeTableCell" style="white-space: nowrap;">Select All</td>
         <td class="themeTableCell">Selects all joints/transforms of the current animated GameObject.</td>
     </tr>
     <tr class="themeTableRow">
-        <td class="themeTableCell">Deselect All</td>
+        <td class="themeTableCell" style="white-space: nowrap;">Deselect All</td>
         <td class="themeTableCell">Deselects all joints/transforms of the current animated GameObject.</td>
     </tr>
     <tr class="themeTableRow">
-        <td class="themeTableCell">Focus Camera</td>
+        <td class="themeTableCell" style="white-space: nowrap;">Focus Camera</td>
         <td class="themeTableCell">Centers the selected joints/transforms in the last selected Scene View.</td>
     </tr>
 </table>

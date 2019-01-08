@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -242,6 +243,15 @@ namespace UMotionEditor
             return assemblyNamesList.ToArray();
             #else
             return new string[] { "Assembly-CSharp", "Assembly-UnityScript" };
+            #endif
+        }
+
+        public static bool IsModelPrefab(GameObject gameObject)
+        {
+            #if UNITY_2018_3_OR_NEWER
+            return (PrefabUtility.GetPrefabAssetType(gameObject) == PrefabAssetType.Model);
+            #else
+            return (PrefabUtility.GetPrefabType(gameObject) == PrefabType.ModelPrefab);
             #endif
         }
 

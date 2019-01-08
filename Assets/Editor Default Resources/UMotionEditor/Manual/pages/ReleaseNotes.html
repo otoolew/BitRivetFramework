@@ -18,7 +18,7 @@
 			</div>
 		</div>
 		<div class="versionHeader">
-			<p class="versionText">Version: <b>1.14</b> </p>
+			<p class="versionText">Version: <b>1.15p04</b> </p>
 		</div>
 		<div class="leftContent">
 			<div class="leftContentInner">
@@ -241,7 +241,60 @@
         </br>
         </br>The beta version is incremented with every change related to the current beta generation (includes bug fixes, new features or changes to the manual). Beta versions are watermarked as "beta" in the Clip Editor and are not available via the Asset Store.</td>
     </tr>
-</table></br></br><h2 class="headline2" id="">UMotion V1.14</h2><h3 class="headline3" id="">New or Changed Features</h3><ul class="listMain">
+</table></br></br><h2 class="headline2" id="">UMotion V1.15p04</h2><h3 class="headline3" id="">New or Changed Features</h3><p class="textBlock">None</p><h3 class="headline3" id="">Bug Fixes</h3><ul class="listMain">
+    <li class="listItem"><span class="listText">Fixed that the camera isn't rendered correctly when a character is applied to the pose editor due to HD render pipeline's fog.</span></li>
+    <li class="listItem"><span class="listText">Fixed that it's not possible to assign a shortcut to "Frame View" (Curves).</span></li>
+    <li class="listItem"><span class="listText">Fixed a crash when trying to create a "Custom IK" chain with the IK Setup Wizard when the target bone is locked.</span></li>
+</ul><h3 class="headline3" id="">Manual Changes</h3><p class="textBlock">None</p></br></br><h2 class="headline2" id="">UMotion V1.15p03</h2><h3 class="headline3" id="">New or Changed Features</h3><p class="textBlock">None</p><h3 class="headline3" id="">Bug Fixes</h3><ul class="listMain">
+    <li class="listItem"><span class="listText">Fixed wrong text rendering in all UMotion windows when UMotion is used together with Unity's new editor skin.</span></li>
+    <li class="listItem"><span class="listText">Fixed an exception that is thrown when the IK handel's parent is set to be the IK target and the operation is undone and then redone.</span></li>
+    <li class="listItem"><span class="listText">Fixed a compile error when using UMotion in Unity 2019.1.</span></li>
+</ul><h3 class="headline3" id="">Manual Changes</h3><p class="textBlock">None</p></br></br><h2 class="headline2" id="">UMotion V1.15p02</h2><h3 class="headline3" id="">New or Changed Features</h3><p class="textBlock">None</p><h3 class="headline3" id="">Bug Fixes</h3><ul class="listMain">
+    <li class="listItem"><span class="listText">Fixed that continuity was not ensured for quaternion curves of exported *.anim files.</span></li>
+    <li class="listItem"><span class="listText">Fixed a crash that appears when the curves view is opened, selection syncing between Pose and Clip Editor is enabled and the opened animation clip is deleted.</span></li>
+    <li class="listItem"><span class="listText">Fixed a crash that can appear on Linux/Mac OS under certain circumstances when UMotion is opened/reloaded after an assembly reload.</span></li>
+    <li class="listItem"><span class="listText">Fixed a crash that appears under certain circumstances when pressing the "Cleanup" button in Config Mode and selection syncing is enabled.</span></li>
+</ul><h3 class="headline3" id="">Manual Changes</h3><p class="textBlock">None</p></br></br><h2 class="headline2" id="">UMotion V1.15p01</h2><h3 class="headline3" id="">New or Changed Features</h3><p class="textBlock">None</p><h3 class="headline3" id="">Bug Fixes</h3><ul class="listMain">
+    <li class="listItem"><span class="listText">Fixed an exception that is thrown when having multiple keys selected in the Curves View, editing their value via the "Edit Keys" context menu and then scaling the keys via the rect tool before the "Edit Keys" dialog is closed.</span></li>
+    <li class="listItem"><span class="listText">Fixed an exception that is thrown when right clicking in the Curves View when no animated property is selected.</span></li>
+    <li class="listItem"><span class="listText">Fixed that UMotion accidentally thinks that it crashed when other assets throw an exception in OnWillSaveAssets() while UMotion is restoring the animation compression setting while importing an animation clip.</span></li>
+    <li class="listItem"><span class="listText">Fixed that when the synchronized selection is enabled, the curve view displays a curve even though no animated property is selected anymore.</span></li>
+</ul><h3 class="headline3" id="">Manual Changes</h3><p class="textBlock">None</p></br></br><h2 class="headline2" id="">UMotion V1.15</h2><h3 class="headline3" id="">New or Changed Features</h3><ul class="listMain">
+    <li class="listItem"><span class="listText">Added a new button "↔ Clip Editor" to the Selection section in the Pose Editor. When enabled, the selection of the Pose Editor and of the Clip Editor is synchronized. This mode is enabled by default.</span></li>
+    <li class="listItem"><span class="listText">Added a new menu item "Select Property Keys in Clip Editor" to the context menu of the Channels section in the Pose Editor.</span></li>
+    <li class="listItem"><span class="listText">Added a new menu item "Select All keys" to the contex menu of the Animated Properties List.</span></li>
+    <li class="listItem"><span class="listText">Selecting a property in the Animated Properties List in the Clip Editor, doesn't select all keys of that property anymore.</span></li>
+    <li class="listItem"><span class="listText">Generic animation clips exported as *.anim now show the root motion settings in the Inspector.</span></li>
+    <li class="listItem"><span class="listText">Vertex weight visualization has been removed due to incompatibility with newer Unity versions.</span></li>
+    <li class="listItem"><span class="listText">Added a "duplicate clip" button to the Clip Editor.</span></li>
+    <li class="listItem"><span class="listText">Decreased the space required by the Playback Navigation bar in order to ensure that all buttons are visible even on small screens.</span></li>
+    <li class="listItem"><span class="listText">Added a "Select In Scene" menu item to the Dopesheet/Curves View context menu. Can also be triggered by holding alt while selecting a key.</span></li>
+    <li class="listItem"><span class="listText">Added a context menu to the time ruler. Can be used to set the playback start/end frame.</span></li>
+    <li class="listItem"><span class="listText">Added a "Crop" feature that allows cropping whole animation clips. The start/end frame is defined by the playback start/end frame. The feature can be reached via "Edit / Crop to Playback" or via the context menu in the Dopesheet/Curves View.</span></li>
+    <li class="listItem"><span class="listText">Added a "Reverse" feature that allows reversing selected keys of an animation clip. The feature can be reached via "Edit / Reverse" or via the context menu in the Dopesheet/Curves View.</span></li>
+</ul><h3 class="headline3" id="">Bug Fixes</h3><ul class="listMain">
+    <li class="listItem"><span class="listText">Fixed that the last selected clip name is displayed in the popup button of the Clip Editor even if the project is already closed.</span></li>
+    <li class="listItem"><span class="listText">Fixed that the tangent mode of keys of generic animation clips wasn't exported correctly in Unity 5.5 and Unity 5.6.</span></li>
+    <li class="listItem"><span class="listText">Fixed that the rect tool handles aren't calculated correctly when child-of keys are selected.</span></li>
+    <li class="listItem"><span class="listText">Fixed that reversing the child-of constraint via the rect tool isn't reversing the constant interpolated curve correctly.</span></li>
+    <li class="listItem"><span class="listText">Fixed that when an IK driven bone is selected in the IK rig layer, tools manipulated the corresponding FK bone. The tool should do nothing instead.</span></li>
+</ul><h3 class="headline3" id="">Manual Changes</h3><ul class="listMain">
+    <li class="listItem"><span class="listText">Added a description of the new button in the Selection chapter of the Pose Editor.</span></li>
+    <li class="listItem"><span class="listText">Updated the description of the context menu in the Channels chapter.</span></li>
+    <li class="listItem"><span class="listText">Updated the description of the context menu in the Animated Properties List chapter.</span></li>
+    <li class="listItem"><span class="listText">Removed the descriptions related to the vertex weight visualization from the "Pose Editor -> Options" and "Pose Editor -> Display" chapters.</span></li>
+    <li class="listItem"><span class="listText">Added a description of the new "duplicate clip" button to the "Clip Editor -> Main Navigation" chapter.</span></li>
+    <li class="listItem"><span class="listText">Updated the screenshots in the "Clip Editor" and "Clip Editor -> Playback Navigation" chapters.</span></li>
+    <li class="listItem"><span class="listText">Added descriptions for the new menu items in the "Clip Editor -> Menu Bar -> Edit" chapter.</span></li>
+    <li class="listItem"><span class="listText">Added descriptions for the new menu items in the "Clip Editor -> Dopesheet / Curves View" chapter.</span></li>
+</ul></br></br><h2 class="headline2" id="">UMotion V1.14p01</h2><h3 class="headline3" id="">New or Changed Features</h3><p class="textBlock">None</p><h3 class="headline3" id="">Bug Fixes</h3><ul class="listMain">
+    <li class="listItem"><span class="listText">Fixed that white boxes randomly appeared on some PCs as soon a character is assigned to the Pose Editor.</span></li>
+    <li class="listItem"><span class="listText">Fixed that the text in the Shortcut Binding Dialog has no word wrap.</span></li>
+    <li class="listItem"><span class="listText">Fixed that euler continuity wasn't ensured when using "Copy To Other Side" in combination with "Auto Key".</span></li>
+    <li class="listItem"><span class="listText">Fixed that transforms that don't exist in an *.FBX file that is updated by the exporter cause an error message even if their visibility is set to "Locked" in UMotion.</span></li>
+    <li class="listItem"><span class="listText">Fixed a compile error in Untiy 2018.3 and added support for the new "ApplySceneOffsets" mode in Unity Timeline's animation tracks.</span></li>
+    <li class="listItem"><span class="listText">Fixed that the FBX exporter exported events on the wrong frame position.</span></li>
+</ul><h3 class="headline3" id="">Manual Changes</h3><p class="textBlock">None</p></br></br><h2 class="headline2" id="">UMotion V1.14</h2><h3 class="headline3" id="">New or Changed Features</h3><ul class="listMain">
     <li class="listItem"><span class="listText">The Auto/Clamped Auto tangent mode has been reworked. In case the clip is looped, it now calculates the tangents of the first and last key in such a way that they interpolate seamlessly.</span></li>
     <li class="listItem"><span class="listText">Improved the wording of the \"This clip is not compatible with this project.\" error message shown when importing a generic animation that uses an incompatible rig.</span></li>
 </ul><h3 class="headline3" id="">Bug Fixes</h3><ul class="listMain">

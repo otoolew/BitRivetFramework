@@ -109,10 +109,14 @@ namespace UMotionEditor
         {
             get
             {
+                #if UNITY_2019_1_OR_NEWER
+                return (UnityEngine.Rendering.RenderPipelineManager.currentPipeline != null);
+                #else
                 #if UNITY_2018_1_OR_NEWER
                 return (UnityEngine.Experimental.Rendering.RenderPipelineManager.currentPipeline != null);
                 #else
                 return false;
+                #endif
                 #endif
             }
         }

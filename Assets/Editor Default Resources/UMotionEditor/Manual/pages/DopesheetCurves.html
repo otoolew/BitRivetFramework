@@ -18,7 +18,7 @@
 			</div>
 		</div>
 		<div class="versionHeader">
-			<p class="versionText">Version: <b>1.14</b> </p>
+			<p class="versionText">Version: <b>1.15p04</b> </p>
 		</div>
 		<div class="leftContent">
 			<div class="leftContentInner">
@@ -304,6 +304,18 @@
         <td class="themeTableCell">Pastes the previously copied keys from the clipboard. Existing keys are overwritten, existing events are merged.</td>
     </tr>
     <tr class="themeTableRow">
+        <td class="themeTableCell">Insert</td>
+        <td class="themeTableCell">Inserts previously copied keys to the animation clip at the current selected frame. This will move existing keys.</td>
+    </tr>
+    <tr class="themeTableRow">
+        <td class="themeTableCell">Reverse</td>
+        <td class="themeTableCell">Inverts all selected keys along the time axis (so that they are played backwards).</td>
+    </tr>
+    <tr class="themeTableRow">
+        <td class="themeTableCell">Crop to Playback</td>
+        <td class="themeTableCell">Crops the current animation clip to the selected playback area (i.e. the area between the white arrows in the time ruler). This affects all animation layers of the animation clip.</td>
+    </tr>
+    <tr class="themeTableRow">
         <td class="themeTableCell" style="white-space: nowrap;">Broken Tangents</td>
         <td class="themeTableCell">Sets or resets the clicked or selected keys Broken Tangents mode. Broken Tangents means that the left and right tangents are independent of each other. When tangents are broken, they can only be set to Free, Linear or Constant.</td>
     </tr>
@@ -354,6 +366,10 @@
     <tr class="themeTableRow">
         <td class="themeTableCell" style="white-space: nowrap;">Both Tangents/Weighted</td>
         <td class="themeTableCell"><b>Available in Unity 2018.1 and higher.</b> Sets the clicked or selected keys left and right tangent into Weighted mode. The tangent handle's length can now be changed. The longer the handle the more weight (or influence) the tangent has on the resulting curve.</td>
+    </tr>
+    <tr class="themeTableRow">
+        <td class="themeTableCell" style="white-space: nowrap;">Select in Scene</td>
+        <td class="themeTableCell">Moves the frame cursor to the clicked key and selects the related bone/transform in the scene view. Very useful for tweaking/polishing animations (especially when using this function's shortcut <span class="keyboardKey">ALT</span> + <span class="keyboardKey">Left Mouse Button</span>).</td>
     </tr>
 </table>
 				<div class="mainContentFooter">

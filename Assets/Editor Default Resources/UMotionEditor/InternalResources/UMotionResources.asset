@@ -46,8 +46,6 @@ MonoBehaviour:
     Reference: {fileID: 2800000, guid: 00d99e4cf26b52f478eb6bf369455882, type: 3}
   - Name: UMotionTabLogoDark
     Reference: {fileID: 2800000, guid: 19b7e0552df01a54282aced29a68d756, type: 3}
-  - Name: VertexParticleMaterial
-    Reference: {fileID: 2100000, guid: c06ccac00da3d994990d549bbe73774b, type: 2}
   - Name: Manual
     Reference: {fileID: 4900000, guid: 03551c0b797ca734097802d09c654c02, type: 3}
   - Name: FbxSdkWindows_X86

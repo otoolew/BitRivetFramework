@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -161,8 +162,6 @@ MonoBehaviour:
         valueInternal: 1
       NamesVisible:
         valueInternal: 0
-      VertexWeightsVisible:
-        valueInternal: 0
       ToolAssistantVisible:
         valueInternal: 1
     Visuals:
@@ -231,6 +230,9 @@ MonoBehaviour:
       valueInternal: 0
     ExportRotOffsetZ:
       valueInternal: 0
+    Selection:
+      SyncWithClipEditor:
+        valueInternal: 1
   AnimatedObjectList:
   - TransformPath:
       valueInternal: 

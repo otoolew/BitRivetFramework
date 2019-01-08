@@ -43,8 +43,24 @@ namespace UMotionEditor
         {
             get
             {
-                #if UNITY_2017_1_OR_NEWER
-                return GetClipParentTrack().applyOffsets;
+                #if UNITY_2018_3_OR_NEWER
+                return (GetClipParentTrack().trackOffset != TrackOffset.ApplySceneOffsets);
+                #else
+                    #if UNITY_2017_1_OR_NEWER
+                    return GetClipParentTrack().applyOffsets;
+                    #else
+                    return false;
+                    #endif
+                #endif
+            }
+        }
+
+        public bool AnimationTrackApplySceneOffsets
+        {
+            get
+            {
+                #if UNITY_2018_3_OR_NEWER
+                return (GetClipParentTrack().trackOffset == TrackOffset.ApplySceneOffsets);
                 #else
                 return false;
                 #endif
